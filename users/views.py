@@ -13,7 +13,7 @@ from .models import Account
 
 def register(request):                                                                      #email test@test.test, username test, password12 test: doe not return any response
     form = UserRegistrationForm()                                                           #email test@test.com, username test, pasword12 http://127.0.0.1:8000/konta/zarejestruj: works properly
-    context = {'form':form}
+    context = {'form':form}                                                                 #email test1@test1.test1, username test1, password12 http://127.0.0.1:8000/konta/zarejestruj: works properly
     if request.method == "POST":
         register_form = UserRegistrationForm(request.POST)
         email_lower = request.POST.get('email').lower()
