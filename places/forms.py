@@ -16,7 +16,14 @@ class StreetForm(ModelForm):
 class LocalsForm(ModelForm):
     class Meta():
         model = Locals
-        fields = ['name', 'local_street', 'local_addres']
+        fields = '__all__'
+        
+    def __init__(self, *args, **kwargs):
+        super(LocalsForm, self).__init__(*args, **kwargs)
+        self.fields['local_street'].required = False
+        self.fields['local_addres'].required = False
+        self.fields['name'].required = False
+        self.fields['description'].required = False
 
 
 class LocalStaffForm(ModelForm):
