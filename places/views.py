@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
-def index():
-    return HttpResponse('działa')
+def places_forms(request):
+    return render(request, 'places/places_forms.html')

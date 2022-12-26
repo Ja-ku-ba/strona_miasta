@@ -33,7 +33,7 @@ class LocalStaff(models.Model):
     local_workers = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
-        return self.person, self.local
+        return f'{self.person}, {self.local}'
 
 
 class LocalProducts(models.Model):
@@ -44,3 +44,13 @@ class LocalProducts(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class LocalRating(models.Model):
+    opinion = models.TextField(blank=True, null=True)
+    rating = models.IntegerField()
+    local = models.ForeignKey(Locals, on_delete=models.CASCADE)
+    person = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.local}, {self.rating}, {self.person}'
