@@ -18,7 +18,7 @@ def register(request):                                                          
         register_form = UserRegistrationForm(request.POST)
         email_lower = request.POST.get('email').lower()
         username_lower = request.POST.get('username').lower()
-        password1 = request.POST.get('password1')                                           #plain password
+        password1 = request.POST.get('password1')                                           #plain password, try to check crypted password
         password2 = request.POST.get('password2')
         if Account.objects.filter(username=username_lower).exists():
             messages.error(request, 'Nazwa użytkownika jest zajęta, proszę wybrać inną')
