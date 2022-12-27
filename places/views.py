@@ -49,7 +49,7 @@ def local_list(request):
     context = {'locals':locals}
     return render(request, 'places/forms/locals_list.html', context)
 
-def local_form(request, pk):
+def local_form(request, pk):                                                   #local edit
     local = Locals.objects.get(id=pk)
     form = LocalsForm()
     if request.method == "POST":

@@ -11,31 +11,49 @@ from .models import Account
 
 # Create your views here.
 
-def register(request):                                                                      #email test@test.test, username test, password12 test: doe not return any response
-    form = UserRegistrationForm()                                                           #email test@test.com, username test, pasword12 http://127.0.0.1:8000/konta/zarejestruj: works properly
-    context = {'form':form}                                                                 #email test1@test1.test1, username test1, password12 http://127.0.0.1:8000/konta/zarejestruj: works properly
+def register(request):                                                                
+    form = UserRegistrationForm()                                                     
+    context = {'form':form}                                                      
     if request.method == "POST":
-        register_form = UserRegistrationForm(request.POST)
-        email_lower = request.POST.get('email').lower()
-        username_lower = request.POST.get('username').lower()
-        password1 = request.POST.get('password1')                                           #plain password, try to check crypted password
-        password2 = request.POST.get('password2')
-        if Account.objects.filter(username=username_lower).exists():
-            messages.error(request, 'Nazwa użytkownika jest zajęta, proszę wybrać inną')
-        if Account.objects.filter(email=email_lower).exists():
-            messages.error(request, "Podany adres email jest już zajęty")
-        if password1 != password2:
-            messages.error(request, "Podane hasła nie są identyczne")
-        if register_form.is_valid():
-            user = register_form.save(commit=False)
-            user.username = username_lower
-            user.email = email_lower
-            user = register_form.save()
-            login(request, user)
-            messages.success(request, f'Zarejestrowano pomyślnie, witaj {user.username}')
-            return redirect('home')
+        form = UserRegistrationForm(request.POST)
+        email = request.POST.get('email').lower()
+        raw_password = request.POST.get('password1')
+        username = request.POST.get('username').lower()
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get('email').lower()
+            raw_password = form.cleaned_data.get('password1')
+            account = authenticate(email=email, password=raw_password)
+            messages.success(request, f'Zarejestrowano pomyślnie, witaj {account.username}')
+            return redirect('home') 
+        else:
+            if Account.objects.filter(username=username).exists():
+                messages.error(request, 'Nazwa użytkownika jest zajęta, proszę wybrać inną')
+            if Account.objects.filter(email=email).exists():
+                messages.error(request, "Podany adres email jest już zajęty")
+            messages.error(request, f'Wprowadzone hasła są różne')                                 #build in password checker try to give user message about their mistake
+            return redirect('register')
     return render(request, 'users/register.html', context)
 
+# register_form = UserRegistrationForm(request.POST)
+#         email_lower = request.POST.get('email').lower()
+#         username_lower = request.POST.get('username').lower()
+#         password1 = request.POST.get('password1')                                           #plain password, try to check crypted password
+#         password2 = request.POST.get('password2')
+        # if Account.objects.filter(username=username_lower).exists():
+        #     messages.error(request, 'Nazwa użytkownika jest zajęta, proszę wybrać inną')
+        # if Account.objects.filter(email=email_lower).exists():
+        #     messages.error(request, "Podany adres email jest już zajęty")
+#         if password1 != password2:
+#             messages.error(request, "Podane hasła nie są identyczne")
+#         if register_form.is_valid():
+#             user = register_form.save(commit=False)
+#             user.username = username_lower
+#             user.email = email_lower
+#             user = register_form.save()
+#             login(request, user)
+#             messages.success(request, f'Zarejestrowano pomyślnie, witaj {user.username}')
+#             return redirect('home')
 
 def login_user(request):
     if request.user.is_authenticated:
