@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <a href="{% url 'post_add' %}">Dodaj post</a>
+    <hr>
+    {% for post in posts %}
+    {{post}} | <a href="{% url 'post_edit' post.id %}">Edytuj post</a> | <a href="{% url 'post_delete' post.id %}">Usuń post</a>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

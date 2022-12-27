@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Czy napewno chcesz usunąć post?</label>
+        <br>
+        <p>{{post.title}}</p>
+        <p>{{post.body}}</p>
+        <p>{{post.added}}</p>
+        <input type="submit" value="Usuń">
+    </form>
+</div>
+{% endblock %}
