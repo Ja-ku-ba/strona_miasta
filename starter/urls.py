@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('core.urls')),
     path('konta/', include('users.urls')),
     path('miejsca/', include('places.urls')),
+    path('posty/', include('posts.urls')),
 ]
