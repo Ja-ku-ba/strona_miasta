@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <p>Usunięcia nie bedzie można cofnąć, nadal możesz wrócić.<br>
+        Czy na pewno chcesz usunąć {{rating}}
+    </p>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" value="Usuń opinię" name="delete_comfirmation">
+        <a href="{% url 'rating_list' %}">Wróć, nie usuwaj opini</a>
+    </form>
+</div>
+{% endblock %}

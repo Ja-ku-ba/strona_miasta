@@ -20,5 +20,9 @@ urlpatterns = [
     path('product_add', views.product_add, name='product_add'),
     path('product_edit/<str:pk>', views.product_edit, name='product_edit'),
     path('product_delete/<str:pk>', views.product_delete, name='product_delete'),
-# ]
+    
+    path('rating_list', views.rating_list, name='rating_list'),
+    path('rating_add', views.rating_add, name='rating_add'),
+    path('rating_edit/<str:pk>', views.rating_edit, name='rating_edit'),
+    path('rating_delete/<str:pk>', views.rating_delete, name='rating_delete'),
 ]

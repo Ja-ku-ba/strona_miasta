@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 #self made
-from .forms import DistrictForm, StreetForm, LocalsForm, LocalProductsForm, LocalStaff
-from .models import District, Street, Locals, LocalProducts, LocalStaff
+from .forms import DistrictForm, StreetForm, LocalsForm, LocalProductsForm, LocalStaff, LocalRatingForm
+from .models import District, Street, Locals, LocalProducts, LocalStaff, LocalRating
 
 # Create your views here.
 def places_forms(request):
@@ -131,3 +131,39 @@ def product_delete(request, pk):
         product.delete()
         return redirect('product_list')
     return render(request, 'places/forms/product_delete.html')
+
+
+def rating_list(request):
+    ratings = LocalRating.objects.all()
+    context = {'ratings':ratings}
+    return render(request, 'places/forms/rating_list.html', context)
+
+def rating_add(request):
+    form = LocalRatingForm()
+    context = {'form':form}
+    if request.method == "POST":
+        form = LocalRatingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('rating_list')
+    return render(request, 'places/forms/rating_add.html', context)
+
+def rating_edit(request, pk):
+    rating = LocalRating.objects.get(id=pk)
+    context = {'rating':rating}
+    if request.method == 'POST':
+        if request.POST.get('opinion') != "":
+            rating.opinion = request.POST.get('opinion')
+        if request.POST.get('rating') != "":
+            rating.rating = request.POST.get('rating')
+        rating.save()
+        return redirect('rating_list')
+    return render(request, 'places/forms/rating_edit.html', context)
+
+def rating_delete(request, pk):
+    rating = LocalRating.objects.get(id=pk)
+    context = {'rating':rating}
+    if request.method == 'POST':
+        rating.delete()
+        return redirect('rating_list')
+    return render(request, 'places/forms/rating_delete.html', context)
