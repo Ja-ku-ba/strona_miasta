@@ -26,7 +26,7 @@ class LocalsForm(ModelForm):
         self.fields['description'].required = False
 
 
-class LocalStaffForm(ModelForm):
+class LocalStaffForm(ModelForm):                                               #when you will do styling, add option wher users can add up
     class Meta():
         model = LocalStaff
         fields = '__all__'
