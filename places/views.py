@@ -94,3 +94,40 @@ def local_delete(request, pk):
         local_request.delete()
         return redirect('local_list')
     return render(request, 'places/forms/local_delete.html', {'local_request':local_request})
+
+
+def product_list(request):
+    products = LocalProducts.objects.all()
+    context = {'products':products}
+    return render(request, 'places/forms/product_list.html', context)
+
+def product_add(request):
+    form = LocalProductsForm()
+    context = {'form':form}
+    if request.method == 'POST':
+        form = LocalProductsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    return render(request, 'places/forms/product_add.html', context)
+
+def product_edit(request, pk):
+    product = LocalProducts.objects.get(id=pk)
+    context = {'product':product}
+    if request.method == 'POST':
+        if request.POST.get('name') != "":
+            product.name = request.POST.get('name')
+        if request.POST.get('description') != "":
+            product.description = request.POST.get('description')
+        if request.POST.get('price') != "":
+            product.description = request.POST.get('price')
+        product.save()
+        return redirect('product_list')
+    return render(request, 'places/forms/product_edit.html', context)
+
+def product_delete(request, pk):
+    product = LocalProducts.objects.get(id=pk)
+    if request.method == "POST":
+        product.delete()
+        return redirect('product_list')
+    return render(request, 'places/forms/product_delete.html')

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Zmień nazwę z {{product.name}} na: </label>
+        <input type="text" name="name">
+        <br>
+        <label>Zmień opis z ,,{{product.description}}" na: </label>
+        <input type="text" name="description">
+        <br>
+        <label>Zmień cenę z {{product.price}} na: </label>
+        <input type="text" name="price">
+        <br>
+        <input type="submit" value="Potwierdź">
+    </form>
+</div>
+{% endblock %}
