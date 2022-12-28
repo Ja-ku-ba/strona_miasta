@@ -24,9 +24,16 @@
                 </button>
             </div>
         {% endfor %}
-
     {% endif %}
-    {% block content %}
-    {% endblock %}
+    <div id="page-container">
+        <div id="container-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="container-info">
+            {% block feed %}
+            {% endblock %}
+        </div>
+    </div>
 </body>
 </html>

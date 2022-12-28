@@ -3,5 +3,28 @@
 }
 
 #nabar-colour {
-    background-color: #db222a;
+    background-color: #04044C;
 }
+
+#page-container {
+    display: flex;
+}
+
+#container-content {
+    width: 80%;
+    height: 45rem;                                                                                 /*change it later to 100%*/
+    border-right: 1px solid black;
+}
+@media only screen and (max-width: 768px) {
+    #container-info {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    #container-info {
+        display: none !important;
+    }
+}
+
