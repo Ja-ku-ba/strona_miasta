@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <img src="{% users 'static/default_profile_picture.png' %}" alt="cant'load"/>
     <form method="post" action="">
         {% csrf_token %}
         <label>Email:</label>
