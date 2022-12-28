@@ -3,7 +3,7 @@
 <a href="{% url 'register' %}">Zarejestruj</a>
 <a href="{% url 'logout' %}">Wyloguj</a>
 <a href="{% url 'places_forms' %}">zarzadzaj miejscami</a>
-<a href="{% url 'posts_list' %}">zarzadzaj postami</a>
+<a href="{% url 'post_coment' %}">zarzadzaj postami</a>
 {% if request.user.is_authenticated %}
 @{{request.user}}
 {% endif %}

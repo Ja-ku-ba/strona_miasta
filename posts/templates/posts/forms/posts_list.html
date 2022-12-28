@@ -4,7 +4,7 @@
     <a href="{% url 'post_add' %}">Dodaj post</a>
     <hr>
     {% for post in posts %}
-    {{post}} | <a href="{% url 'post_edit' post.id %}">Edytuj post</a> | <a href="{% url 'post_delete' post.id %}">Usuń post</a>
+    {{post}} | <a href="{% url 'post_edit' post.id %}">Edytuj post</a> | <a href="{% url 'post_delete' post.id %}">Usuń post</a> | <a href="{% url 'coment_add' post.id %}">Dodaj komentarz</a>
     <br>
     {% endfor %}
 </div>

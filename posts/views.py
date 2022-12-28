@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .models import Post, Coment
-from .forms import PostForm
+from .forms import PostForm, ComentForm
 # Create your views here.
+
+def post_coment(request):
+    return render(request, 'posts/post_coment.html')
+
+
 def posts_list(request):
     posts = Post.objects.all()
     context = {'posts':posts}
@@ -48,3 +53,29 @@ def post_delete(request, pk):
     return render(request, 'posts/forms/posts_delete.html', context)
 
 
+def coment_list(request):
+    coments = Coment.objects.all()
+    context = {'coments':coments}
+    return render(request, 'posts/forms/coment_list.html', context)
+
+def coment_add(request, pk):
+    form = ComentForm()
+    comented_post_request = Post.objects.get(id=pk)
+    context = {'form':form, 'comented_post':comented_post_request}
+    if request.method == "POST":
+        form = ComentForm(request.POST)
+        if form.is_valid():
+            Coment.objects.create(
+                owner = request.user,
+                comented_post = comented_post_request,
+                body = request.POST.get('body')
+            )
+            return redirect('coment_list')
+    return render(request,'posts/forms/coment_add.html', context)
+
+def coment_delete(request, pk):
+    coment = Coment.objects.get(id=pk)
+    if request.method == 'POST':
+        coment.delete()
+        return redirect('coment_list')
+    return render(request, 'posts/forms/coment_delete.html')

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <hr>
+    {% for coment in coments %}
+    <a>{{coment}}</a> | <a href="{% url 'coment_delete' coment.id %}">Usuń komentarz</a>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

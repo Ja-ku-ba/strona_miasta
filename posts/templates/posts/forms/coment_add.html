@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field.field_tag }}{{field}}
+        <br>
+        {% endfor %}
+        <input type="submit" value="Skomentuj">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Usunięcia komentarza nie będzie można cofnąć, czy na pewno chcesz to zrobić?</label>
+        <br>
+        <input type="submit" value="Usuń">
+        <a href="{% url 'coment_list' %}">Nie, wróć do poprzedniej strony</a>
+    </form>
+</div>
+{% endblock %}
