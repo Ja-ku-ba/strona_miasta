@@ -46,3 +46,5 @@ def post_delete(request, pk):
         post.delete()
         return redirect('posts_list')
     return render(request, 'posts/forms/posts_delete.html', context)
+
+
