@@ -25,6 +25,7 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             messages.success(request, f'Zarejestrowano pomyślnie, witaj {account.username}')
+            login(request, account)
             return redirect('home') 
         else:
             if Account.objects.filter(username=username).exists():
