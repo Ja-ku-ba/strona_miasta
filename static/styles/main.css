@@ -40,14 +40,16 @@
 /* end home page */
 
 
-/* login panel */
-#login-panel-postion {
+/* login and register panels */                                                             /*do it more responive (text in labels does not show good enough on smaller devoces */
+.panels-postion {
     position: absolute;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -30%);
 }
 
-#login-panel-size {
-    padding: 10px;
+.panels-size {
+    width: fit-content;
+    height: auto;
 }
+/* end login and register panels */
