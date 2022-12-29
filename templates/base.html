@@ -25,15 +25,9 @@
             </div>
         {% endfor %}
     {% endif %}
-    <div id="page-container">
-        <div id="container-content">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <div class="container-info">
-            {% block info %}
-            {% endblock %}
-        </div>
-    </div>
+
+    {% block content %}
+    {% endblock %}
+    
 </body>
 </html>
