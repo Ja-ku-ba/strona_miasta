@@ -10,8 +10,20 @@
                 <img src="#" class="img-fluid" alt="{{post.title}}">
             </div>
             <div class="card-footer text-muted">
-                <a href="#" class="btn btn-primary">like</a>
-                <a href="#" class="btn btn-primary">dislike</a>
+                <div>
+                    <form method="POST" action="{% url 'like' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">like</button>
+                    </form>
+                    {{post.likes}}
+                </div>
+                <div>
+                    <form method="POST" action="{% url 'dislike' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">dislike</button>
+                    </form>
+                    {{post.dislikes}}
+                </div>
             </div>
         </div>
     {% endfor %}

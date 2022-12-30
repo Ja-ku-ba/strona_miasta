@@ -31,3 +31,21 @@ class Coment(models.Model):
 
     def __str__(self):
         return f'{self.owner}, {self.comented_post}'
+
+
+class Like(models.Model):
+    person = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    liked = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.person}, {self.post}'
+
+
+class Dislike(models.Model):
+    person = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    disliked = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.person}, {self.post}'
