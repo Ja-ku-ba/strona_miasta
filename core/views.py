@@ -62,3 +62,36 @@ def dislike_func(request, pk):
             post_req.dislikes += 1
             post_req.save()
             return redirect('home')
+
+
+def user_page(request, name):
+    user_req = Account.objects.get(username = name)
+    print(user_req.id, '----------------------------------')
+    user_posts = Post.objects.filter(owner = user_req.id)
+    context = {'user_req':user_req, 'posts':user_posts}
+
+    return render(request, 'core/user_page.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

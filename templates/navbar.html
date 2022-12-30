@@ -6,7 +6,7 @@
   
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item">
@@ -14,7 +14,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'post_coment' %}">Postami</a>
-        </li>
+        </li> -->
       </ul>
       {% if request.user.is_authenticated %}
         <form class="form-inline mr-auto my-2 my-lg-0">
@@ -23,7 +23,7 @@
         </form>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="#">@{{request.user}}</a>
+                <a class="nav-link" href="{% url 'user_page' request.user.username %}">@{{request.user}}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Wyloguj</a>
