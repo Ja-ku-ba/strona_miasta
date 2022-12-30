@@ -5,11 +5,14 @@ from django.db import models
 from users.models import Account
 # Create your models here.
 
+def get_image_filepath(self, filename):
+    return f'posts/static/posts/{self.owner.id}/{self.pk}.png'                                  #path user.id --> post.id
+                                                                                                #issue with adding photo before uploading a post, post.id then is None
 class Post(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
     body = models.TextField()
-    # image = 
+    image = models.ImageField(max_length=255, upload_to=get_image_filepath, null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
