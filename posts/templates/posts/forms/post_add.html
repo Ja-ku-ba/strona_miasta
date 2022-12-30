@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype='multipart/form-data'>
         {% csrf_token %}
         <label>Tytuł posta: </label>
         {{ form.title }}
         <br>
         <label>Zawartość posta: </label>
         {{ form.body }}
+        <br>
+        <label>Zdjęcie</label>
+        {{form.image}}
         <br>
         <input type="submit" value="Dodaj">
     </form>

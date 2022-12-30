@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .models import Post, Coment
+from .models import Post, Coment, get_image_filepath
 from .forms import PostForm, ComentForm
 # Create your views here.
 
@@ -18,13 +18,15 @@ def post_add(request):
     form = PostForm()
     context = {'form':form}
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            Post.objects.create(
+            new_post = Post.objects.create(
                 title = request.POST.get('title'),
                 body = request.POST.get('body'),
-                owner = request.user
+                owner = request.user,
             )
+            new_post.image = request.FILES.get('image')
+            new_post.save()
             return redirect('posts_list')
         messages.info(request, 'Aby utworzyć nowy post musisz dodać tytuł, oraz treść')
         return redirect('post_add')

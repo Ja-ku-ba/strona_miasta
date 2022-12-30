@@ -7,7 +7,7 @@ from users.models import Account
 
 def get_image_filepath(self, filename):
     return f'posts/static/posts/{self.owner.id}/{self.pk}.png'                                  #path user.id --> post.id
-                                                                                                #issue with adding photo before uploading a post, post.id then is None
+                                                                                                #isue with adding photo before uploading a post, post.id then is None
 class Post(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
