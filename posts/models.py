@@ -17,6 +17,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.owner} | {self.title}'
 
+    class Meta:
+        ordering = ['-added']
+
 
 class Coment(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
