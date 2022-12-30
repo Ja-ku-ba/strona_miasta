@@ -1,6 +1,7 @@
 /* navbar */
 #wider-searchbar {
     width:430px !important;
+    overflow: hidden;
 }
 
 #nabar-colour {
@@ -18,7 +19,7 @@
 #container-content {
     width: 80%;
     height: 100%;                                                                                 /*change it later to 100%*/
-    border-right: 1px solid black;
+
 }
 @media only screen and (max-width: 768px) {
     #container-content {
@@ -27,10 +28,7 @@
 }
 
 #container-info{
-    float: left;
     width: 20%;
-    overflow: hidden;
-    content: fill;
 }
 
 @media only screen and (max-width: 768px) {
@@ -74,3 +72,17 @@
 #feed-card {
     margin-bottom: 15px;
 }
+/* end feed */
+
+
+/* infos */
+#sticky {
+    position: sticky;
+    top: 72px;
+}
+
+.info-buttons {
+    width: 80%;
+    margin: auto;
+}
+/* endinfos */
