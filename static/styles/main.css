@@ -107,3 +107,31 @@
     content: none;
 }
 /*end add post*/
+
+
+/* post page */
+#left-spacer {
+    width: 20%;
+    height: auto;
+}
+
+#right-spacer {
+    width: 20%;
+    height: auto;
+}
+
+#button-normal {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 700,
+  'GRAD' 200,
+  'opsz' 48
+}

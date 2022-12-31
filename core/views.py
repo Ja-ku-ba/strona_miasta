@@ -9,6 +9,19 @@ def home(request):
     context = {'posts':posts}
     return render(request, 'core/home.html', context)
 
+def post(request, pk):
+    post_infos = Post.objects.get(id=pk)
+    try:
+        user_likes = Like.objects.get(post=post_infos, person=request.user)
+    except:
+        user_likes = None
+    try:
+        user_dislikes = Dislike.objects.get(post=post_infos, person=request.user)
+    except:
+        user_dislikes = None
+    context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes}
+    return render(request, 'core/post.html', context)
+
 def like_func(request, pk):
     post_req = Post.objects.get(id=pk)
     if request.method == "POST":
@@ -24,7 +37,7 @@ def like_func(request, pk):
             like.delete()
             post_req.reactions -= 1
             post_req.save()
-            return redirect('home')
+            return redirect('post', pk)
         #add like to post
         else:
             Like.objects.create(
@@ -33,7 +46,7 @@ def like_func(request, pk):
             )
             post_req.reactions += 1
             post_req.save()
-            return redirect('home')
+            return redirect('post', pk)
 
 def dislike_func(request, pk):
     post_req = Post.objects.get(id=pk)
@@ -50,7 +63,7 @@ def dislike_func(request, pk):
             dislike.delete()
             post_req.reactions += 1
             post_req.save()
-            return redirect('home')
+            return redirect('post', pk)
         #add dislike to post
         else:
             Dislike.objects.create(
@@ -59,7 +72,7 @@ def dislike_func(request, pk):
             )
             post_req.reactions -= 1
             post_req.save()
-            return redirect('home')
+            return redirect('post', pk)
 
 
 def user_page(request, name):

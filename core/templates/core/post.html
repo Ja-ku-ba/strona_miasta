@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="left-spacer"></div>
+<div id="feed-width">
+    <div class="card text-center" id="feed-card">
+        <div class="card-header">
+            @{{post_infos.owner}}, {{post_infos.added}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{post_infos.title}}</h5>
+            <p class="card-text">{{post_infos.body}}</p>
+            {% load static %}<img src='{% static "posts/1/" %}{{ post_infos.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post_infos.id }}.png" onerror="this.style.display = 'none'">
+        </div>
+        <div class="card-footer text-muted reaction-buttons">
+            <form method="POST" action="{% url 'like' post_infos.id %}">
+                {% csrf_token %}
+                {% if user_likes is None %}
+                    <button type="submit" class="btn">
+                        <i class="material-symbols-outlined" id="button-normal">
+                            favorite
+                        </i>
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn">
+                        <i class="material-symbols-outlined">
+                            favorite
+                        </i>
+                    </button>
+                {% endif %}
+            </form>
+            {{post_infos.reactions}}
+            <form method="POST" action="{% url 'dislike' post_infos.id %}">
+                {% csrf_token %}
+                {% if user_dislikes is None %}
+                    <button type="submit" class="btn">
+                        <i class="material-symbols-outlined" id="button-normal">
+                            heart_broken
+                        </i>
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn">
+                        <i class="material-symbols-outlined">
+                            heart_broken
+                        </i>
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+<div id="right-spacer"></div>
+{% endblock %}
