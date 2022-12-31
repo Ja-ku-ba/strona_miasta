@@ -2,11 +2,24 @@
 #wider-searchbar {
     width:430px !important;
     overflow: hidden;
+    justify-content: center;
 }
 
 #nabar-colour {
     background-color: #04044C;
     margin-bottom: 15px;
+}
+
+#searchbar-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+}
+
+#search-button {
+    height: 40px;
+    width: 48px;
 }
 /* end navbar */
 
@@ -83,8 +96,6 @@
     flex-direction: row;
     justify-content: center;
 }
-
-
 /* end feed */
 
 
