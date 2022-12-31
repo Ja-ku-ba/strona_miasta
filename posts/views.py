@@ -29,7 +29,7 @@ def post_add(request):
             new_post.save()
             return redirect('posts_list')
         messages.info(request, 'Aby utworzyć nowy post musisz dodać tytuł, oraz treść')
-        return redirect('post_add')
+        return redirect('home')
     return render(request, 'posts/forms/post_add.html', context)
 
 def post_edit(request, pk):

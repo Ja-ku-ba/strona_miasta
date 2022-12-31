@@ -1,18 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <form method="POST" action="" enctype='multipart/form-data'>
-        {% csrf_token %}
-        <label>Tytuł posta: </label>
-        {{ form.title }}
-        <br>
-        <label>Zawartość posta: </label>
-        {{ form.body }}
-        <br>
-        <label>Zdjęcie</label>
-        {{form.image}}
-        <br>
-        <input type="submit" value="Dodaj">
-    </form>
+<div class="panels-postion panels-size">
+    <div class="card text-center">
+        <div class="card-body">
+            <form method="POST" action="" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <div class="card text-center" id="feed-card">
+                    <div class="card-header">
+                        @{{request.user}}
+                    </div>
+                    <div class="form-group row">
+                        <label for="title" class="col-form-label">Nagłówek:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="body" class="col-form-label">Zawartość:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="body" name="body">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            {{form.image}}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <input type="submit" class="btn btn-primary" value="Prześlij">
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}

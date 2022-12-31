@@ -86,3 +86,11 @@
     margin: auto;
 }
 /* endinfos */
+
+
+/*add post*/
+.custom-file-label ::after {                                                                /*it does not work, BROWSE field displays near WYBIERZ ZDJECIE field*/
+    display: none;
+    content: none;
+}
+/*end add post*/
