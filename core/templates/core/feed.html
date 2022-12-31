@@ -7,23 +7,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{post.title}}</h5>
                 <p class="card-text">{{post.body}}</p>
-                {% load static %}<img src='{% static "posts/1/" %}{{ post.id }}.png' class="img-fluid" alt="posts/1/{{ post.id }}.png">
+                {% load static %}<img src='{% static "posts/1/" %}{{ post.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post.id }}.png" onerror="this.style.display = 'none'">
             </div>
             <div class="card-footer text-muted">
-                <div>
-                    <form method="POST" action="{% url 'like' post.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">like</button>
-                    </form>
-                    {{post.likes}}
-                </div>
-                <div>
-                    <form method="POST" action="{% url 'dislike' post.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">dislike</button>
-                    </form>
-                    {{post.dislikes}}
-                </div>
+                <a class="btn btn-primary" href="#" role="button">Zobacz więcej</a>
             </div>
         </div>
     {% endfor %}

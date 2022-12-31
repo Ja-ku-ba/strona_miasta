@@ -14,8 +14,7 @@ class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(max_length=255, upload_to=get_image_filepath, null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default=0)
+    reactions = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.owner} | {self.title}'

@@ -72,6 +72,19 @@
 #feed-card {
     margin-bottom: 15px;
 }
+
+#feed-image {
+    width: 100%;
+    max-height: 1000px;
+}
+
+.reaction-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
 /* end feed */
 
 
