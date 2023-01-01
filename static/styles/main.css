@@ -25,27 +25,27 @@
 
 
 /* home page */
-#page-container {
+.page-container {
     display: flex;
 }
 
-#container-content {
+.container-content {
     width: 80%;
     height: 100%;                                                                                 /*change it later to 100%*/
 
 }
 @media only screen and (max-width: 768px) {
-    #container-content {
+    .container-content {
         width: 100%;
     }
 }
 
-#container-info{
+.container-info{
     width: 20%;
 }
 
 @media only screen and (max-width: 768px) {
-    #container-info {
+    .container-info {
         display: none !important;
     }
 }

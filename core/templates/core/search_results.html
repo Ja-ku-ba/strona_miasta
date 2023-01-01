@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-container">
+    <div class="container-content">
+        {% include 'core/feed.html' %}
+    </div>
+    <div class="container-info">
+        <div class="list-group">
+            {% for human in people %}
+                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">{{human}}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

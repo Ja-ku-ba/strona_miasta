@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 
 from posts.models import Post, Like, Dislike, Account, Coment
 from posts.views import coment_add
@@ -9,6 +10,18 @@ def home(request):
     posts = Post.objects.all()
     context = {'posts':posts}
     return render(request, 'core/home.html', context)
+
+def search(request):    
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    people = Account.objects.filter(
+        Q(username__icontains=q)
+    )
+    posts = Post.objects.filter(
+        Q(title__icontains=q) |
+        Q(body__icontains=q)   
+    )
+    context = {'posts':posts, 'people':people, 'posts':posts}
+    return render(request, 'core/search_results.html', context)
 
 def post(request, pk):
     post_infos = Post.objects.get(id=pk)
