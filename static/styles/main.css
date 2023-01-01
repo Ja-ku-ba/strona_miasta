@@ -113,9 +113,44 @@
 
 
 /*add post*/
-.custom-file-label ::after {                                                                /*it does not work, BROWSE field displays near WYBIERZ ZDJECIE field*/
-    display: none;
-    content: none;
+#post-add {
+    width: 40%;
+}
+
+@media only screen and (max-width: 992px) {
+    #post-add {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #post-add {
+        width: 100%;
+    }
+
+    .add-post-input{
+        width: 70%;
+    }
+}
+
+.fit-label {
+    width: fit-content;
+}
+
+#add-button {
+    padding-bottom: 15px;
+}
+
+.add-post-title {
+    margin-left: auto;
+}
+
+.add-post-input {
+    margin-right: auto;
+}
+
+#post-button {
+    margin-bottom: 15px;
 }
 /*end add post*/
 
