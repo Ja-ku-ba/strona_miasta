@@ -3,6 +3,7 @@ from django.contrib import messages
 
 from .models import Post, Coment, get_image_filepath
 from .forms import PostForm, ComentForm
+from users.models import Account
 # Create your views here.
 
 def post_coment(request):
@@ -27,7 +28,7 @@ def post_add(request):
             )
             new_post.image = request.FILES.get('image')
             new_post.save()
-            return redirect('posts_list')
+            return redirect('post', new_post.id)
         messages.info(request, 'Aby utworzyć nowy post musisz dodać tytuł, oraz treść')
         return redirect('home')
     return render(request, 'posts/forms/post_add.html', context)
@@ -48,9 +49,13 @@ def post_edit(request, pk):
 
 def post_delete(request, pk, user_req):
     post = Post.objects.get(id=pk)
-    if post.owner == user_req:
+    user = Account.objects.get(username=user_req)
+    if post.owner == user:
         if request.method == 'POST':
             post.delete()
+            return redirect('home')
+    messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
+    return redirect('home')
 
 def coment_list(request):
     coments = Coment.objects.all()
@@ -72,7 +77,10 @@ def coment_add(request, pk):
 
 def coment_delete(request, pk, user_req):
     coment = Coment.objects.get(id=pk)
-    if coment.owner == user_req:
+    user = Account.objects.get(username=user_req)
+    if coment.owner == user:
         if request.method == 'POST':
             coment.delete()
+            return redirect('post', coment.comented_post.id)
     messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
+    return redirect('post', coment.comented_post.id)

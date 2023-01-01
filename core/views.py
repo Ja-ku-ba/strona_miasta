@@ -44,12 +44,6 @@ def post(request, pk):
     add = coment_add(request, pk=pk)
     if add:
         return redirect('post', pk)
-
-    #post delete
-    if request.method == 'POST':
-        post_delete(request, post_infos.id, request.user)
-        return redirect('home')
-
     return render(request, 'core/post.html', context)
 
 def like_func(request, pk):
