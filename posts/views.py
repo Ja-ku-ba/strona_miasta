@@ -46,14 +46,11 @@ def post_edit(request, pk):
     context = {'post':post}
     return render(request, 'posts/forms/post_edit.html', context)
 
-def post_delete(request, pk):
+def post_delete(request, pk, user_req):
     post = Post.objects.get(id=pk)
-    context = {'post':post}
-    if request.method == 'POST':
-        post.delete()
-        return redirect('posts_list')
-    return render(request, 'posts/forms/posts_delete.html', context)
-
+    if post.owner == user_req:
+        if request.method == 'POST':
+            post.delete()
 
 def coment_list(request):
     coments = Coment.objects.all()
@@ -73,9 +70,9 @@ def coment_add(request, pk):
             )
             return True
 
-def coment_delete(request, pk):
+def coment_delete(request, pk, user_req):
     coment = Coment.objects.get(id=pk)
-    if request.method == 'POST':
-        coment.delete()
-        return redirect('coment_list')
-    return render(request, 'posts/forms/coment_delete.html')
+    if coment.owner == user_req:
+        if request.method == 'POST':
+            coment.delete()
+    messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
