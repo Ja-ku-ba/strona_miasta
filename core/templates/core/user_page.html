@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="page-container">
-    <div id="container-content">
+<div class="page-container">
+    <div class="container-content">
         {% include 'core/feed.html' %}
     </div>
-    <div id="container-info">
-        {% include 'core/infos_profile.html' %}
-    </div>
+    {% if request.user == user_req %}
+        <div class="container-info">
+            {% include 'core/infos_profile.html' %}
+        </div>
+    {% endif %}
 </div>
 {% endblock content %}

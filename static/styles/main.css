@@ -20,6 +20,8 @@
 #search-button {
     height: 40px;
     width: 48px;
+    margin-left: 3px;
+    margin-right: -3px;
 }
 /* end navbar */
 

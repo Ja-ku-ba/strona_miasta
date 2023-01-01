@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib import messages
 
-from posts.models import Post, Like, Dislike, Account, Coment
+
+from posts.models import Post, Like, Dislike, Account, Coment, Interractions
 from posts.views import coment_add
 # Create your views here.
 
@@ -13,6 +15,9 @@ def home(request):
 
 def search(request):    
     q = request.GET.get('q') if request.GET.get('q') != None else ''
+    if q == '':
+        messages.info(request, 'Wprowadzono puste zapytanie.')
+        return redirect('home')
     people = Account.objects.filter(
         Q(username__icontains=q)
     )
@@ -51,12 +56,14 @@ def like_func(request, pk):
             dislike.delete()
             post_req.save()
             post_req.reactions += 1
+            check_interactions(request.user, post_req, False)
         #check if user already likes the post, then unlike
         if Like.objects.filter(post=pk, person=request.user.id).exists() is True:
             like = Like.objects.get(post=pk, person=request.user.id)
             like.delete()
             post_req.reactions -= 1
             post_req.save()
+            check_interactions(request.user, post_req, False)
             return redirect('post', pk)
         #add like to post
         else:
@@ -66,6 +73,7 @@ def like_func(request, pk):
             )
             post_req.reactions += 1
             post_req.save()
+            check_interactions(request.user, post_req, True)
             return redirect('post', pk)
 
 def dislike_func(request, pk):
@@ -77,12 +85,14 @@ def dislike_func(request, pk):
             like.delete()
             post_req.reactions -= 1
             post_req.save()
+            check_interactions(request.user, post_req, False)
         #check if user already dislikes the post, then undislike
         if Dislike.objects.filter(post=pk, person=request.user.id).exists() is True:
             dislike = Dislike.objects.get(post=pk, person=request.user.id)
             dislike.delete()
             post_req.reactions += 1
             post_req.save()
+            check_interactions(request.user, post_req, False)
             return redirect('post', pk)
         #add dislike to post
         else:
@@ -92,6 +102,7 @@ def dislike_func(request, pk):
             )
             post_req.reactions -= 1
             post_req.save()
+            check_interactions(request.user, post_req, True)
             return redirect('post', pk)
 
 
@@ -102,7 +113,31 @@ def user_page(request, name):
 
     return render(request, 'core/user_page.html', context)
 
+def check_interactions(user, post_id, status):                                                      #when you add deltee coment function, change it to check 
+    coment_status = False                                                                           #coment exist, then change interaction status
+    try:
+        coment = Coment.objects.get(comented_post=post_id, owner=user)
+        coment_status = True
+    except:
+        pass    
+    if status is False:
+        iter = Interractions.objects.get(person=user, post=post_id)
+        iter.delete()
+        return True
+    Interractions.objects.create(
+        person = user,
+        post = post_id
+    )
+    return True
 
+def user_interactions(request, username):
+    user_req = Account.objects.get(username=username)
+    likes = Like.objects.filter(person = user_req.id)
+    dislikes = Dislike.objects.filter(person = user_req.id)
+    coments = Coment.objects.filter(owner = user_req.id)
+    posts = likes | dislikes | coments
+    context = {'user_req':user_req, 'posts':posts}
+    return render(request, 'core/user_post_interactions.html', context)
 
 
 
