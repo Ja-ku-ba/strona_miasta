@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from posts.models import Post, Like, Dislike, Account
+from posts.models import Post, Like, Dislike, Account, Coment
+from posts.views import coment_add
 # Create your views here.
 
 def home(request):
@@ -19,7 +20,13 @@ def post(request, pk):
         user_dislikes = Dislike.objects.get(post=post_infos, person=request.user)
     except:
         user_dislikes = None
-    context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes}
+
+    coments = Coment.objects.filter(comented_post=pk)
+    context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes, 'coments':coments}
+    add = coment_add(request, pk=pk)
+    if add:
+        return redirect('post', pk)
+
     return render(request, 'core/post.html', context)
 
 def like_func(request, pk):
@@ -77,9 +84,8 @@ def dislike_func(request, pk):
 
 def user_page(request, name):
     user_req = Account.objects.get(username = name)
-    print(user_req.id, '----------------------------------')
-    user_posts = Post.objects.filter(owner = user_req.id)
-    context = {'user_req':user_req, 'posts':user_posts}
+    posts = Post.objects.filter(owner = user_req.id)
+    context = {'user_req':user_req, 'posts':posts}
 
     return render(request, 'core/user_page.html', context)
 

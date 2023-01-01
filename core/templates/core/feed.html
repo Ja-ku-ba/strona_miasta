@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{post.title}}</h5>
                 <p class="card-text">{{post.body}}</p>
-                {% load static %}<img src='{% static "posts/1/" %}{{ post.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post.id }}.png" onerror="this.style.display = 'none'">
+                {% load static %}<img src='{% static "posts/" %}{{post.owner.id}}/{{ post.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post.id }}.png" onerror="this.style.display = 'none'">
             </div>
             <div class="card-footer text-muted">
                 <a class="btn btn-primary" href="{% url 'post' post.id %}" role="button">Zobacz więcej</a>

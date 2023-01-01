@@ -181,3 +181,13 @@
   'GRAD' 200,
   'opsz' 48
 }
+
+#add-coment-elements {
+    display: flex;
+    flex-direction: row;
+}
+
+#add-coment-input {
+    width: 80%;
+    margin: auto;
+}

@@ -63,7 +63,6 @@ def coment_list(request):
 def coment_add(request, pk):
     form = ComentForm()
     comented_post_request = Post.objects.get(id=pk)
-    context = {'form':form, 'comented_post':comented_post_request}
     if request.method == "POST":
         form = ComentForm(request.POST)
         if form.is_valid():
@@ -72,8 +71,7 @@ def coment_add(request, pk):
                 comented_post = comented_post_request,
                 body = request.POST.get('body')
             )
-            return redirect('coment_list')
-    return render(request,'posts/forms/coment_add.html', context)
+            return True
 
 def coment_delete(request, pk):
     coment = Coment.objects.get(id=pk)

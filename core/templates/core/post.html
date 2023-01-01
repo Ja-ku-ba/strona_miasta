@@ -9,7 +9,7 @@
         <div class="card-body">
             <h5 class="card-title">{{post_infos.title}}</h5>
             <p class="card-text">{{post_infos.body}}</p>
-            {% load static %}<img src='{% static "posts/1/" %}{{ post_infos.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post_infos.id }}.png" onerror="this.style.display = 'none'">
+            {% load static %}<img src='{% static "posts/" %}{{post_infos.owner.id}}/{{ post_infos.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post.id }}.png" onerror="this.style.display = 'none'">
         </div>
         <div class="card-footer text-muted reaction-buttons">
             <form method="POST" action="{% url 'like' post_infos.id %}">
@@ -45,6 +45,35 @@
                     </button>
                 {% endif %}
             </form>
+        </div>
+        <div id="coment-section">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div id="add-coment-elements">
+                    <div id="add-coment-input">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body"></textarea>
+                    </div>
+                    <input type="submit" value="Potwierdź">
+                </div>
+            </form>
+
+            <hr>
+            <div class="list-group">
+                {% for coment in coments %}
+                    <button type="button" class="list-group-item list-group-item-action">
+                        <div class="card">
+                            <div class="card-header">
+                            {{coment.owner}}, {{coment.added}}
+                            </div>
+                            <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>{{coment.body}}</p>
+                            </blockquote>
+                            </div>
+                        </div>
+                    </button>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

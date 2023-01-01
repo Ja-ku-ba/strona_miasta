@@ -27,13 +27,15 @@ class Coment(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     comented_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.CharField(max_length=256)
-    addes = models.DateTimeField(auto_now_add=True)
+    added = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.owner}, {self.comented_post}'
 
+    class Meta:
+        ordering = ['-added']
 
 class Like(models.Model):
     person = models.ForeignKey(Account, on_delete=models.CASCADE)
