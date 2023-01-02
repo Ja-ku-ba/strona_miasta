@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-content">
-    {% include 'core/feed.html' %}
+<div id="feed-width">
+    {% if posts_interacted != '' %}
+        {% for interaction in posts_interacted %}
+            <div class="card text-center" id="feed-card">
+                <div class="card-header">
+                    @{{interaction.post.owner}}, {{interaction.post.added}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{interaction.post.title}}</h5>
+                    <p class="card-text">{{interaction.post.body}}</p>
+                    {% load static %}<img src='{% static "posts/" %}{{interaction.post.owner.id}}/{{ interaction.post.id }}.png' id="feed-image" class="img-fluid" alt="posts/1/{{ post.id }}.png" onerror="this.style.display = 'none'">
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-primary" href="{% url 'post' interaction.post.id %}" role="button">Zobacz więcej</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

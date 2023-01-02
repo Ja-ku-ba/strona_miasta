@@ -134,7 +134,6 @@ def check_interactions(user, post_id, status):
         Coment.objects.get(owner=user, comented_post=post_id)
     except:
         coment_status = True
-    print(like_status, dislike_status, coment_status, status)
 
     if status == 'ld':
         if (dislike_status is True) and (coment_status is True):                                   #If user want to delete like, but there already exists dislike or coment then return nothing
@@ -154,5 +153,6 @@ def check_interactions(user, post_id, status):
 
 def user_interactions(request, username):
     user_req = Account.objects.get(username=username)
-    context = {'user_req':user_req}
+    posts_interacted = Interractions.objects.filter(person = user_req.id)
+    context = {'user_req':user_req, 'posts_interacted':posts_interacted}
     return render(request, 'core/user_post_interactions.html', context)
