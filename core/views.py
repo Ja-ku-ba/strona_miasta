@@ -5,7 +5,6 @@ from django.contrib import messages
 
 
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
-from posts.views import coment_add, coment_delete, post_delete
 # Create your views here.
 
 def home(request):
@@ -41,9 +40,6 @@ def post(request, pk):
 
     coments = Coment.objects.filter(comented_post=pk)
     context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes, 'coments':coments}
-    add = coment_add(request, pk=pk)
-    if add:
-        return redirect('post', pk)
     return render(request, 'core/post.html', context)
 
 def like_func(request, pk):
@@ -55,14 +51,14 @@ def like_func(request, pk):
             dislike.delete()
             post_req.save()
             post_req.reactions += 1
-            check_interactions(request.user, post_req, False)
+            check_interactions(request.user, post_req, 'dd')
         #check if user already likes the post, then unlike
         if Like.objects.filter(post=pk, person=request.user.id).exists() is True:
             like = Like.objects.get(post=pk, person=request.user.id)
             like.delete()
             post_req.reactions -= 1
             post_req.save()
-            check_interactions(request.user, post_req, False)
+            check_interactions(request.user, post_req, 'ld')
             return redirect('post', pk)
         #add like to post
         else:
@@ -72,7 +68,7 @@ def like_func(request, pk):
             )
             post_req.reactions += 1
             post_req.save()
-            check_interactions(request.user, post_req, True)
+            check_interactions(request.user, post_req, 'la')
             return redirect('post', pk)
 
 def dislike_func(request, pk):
@@ -84,14 +80,14 @@ def dislike_func(request, pk):
             like.delete()
             post_req.reactions -= 1
             post_req.save()
-            check_interactions(request.user, post_req, False)
+            check_interactions(request.user, post_req, 'ld')
         #check if user already dislikes the post, then undislike
         if Dislike.objects.filter(post=pk, person=request.user.id).exists() is True:
             dislike = Dislike.objects.get(post=pk, person=request.user.id)
             dislike.delete()
             post_req.reactions += 1
             post_req.save()
-            check_interactions(request.user, post_req, False)
+            check_interactions(request.user, post_req, 'dd')
             return redirect('post', pk)
         #add dislike to post
         else:
@@ -101,7 +97,7 @@ def dislike_func(request, pk):
             )
             post_req.reactions -= 1
             post_req.save()
-            check_interactions(request.user, post_req, True)
+            check_interactions(request.user, post_req, 'da')
             return redirect('post', pk)
 
 
@@ -112,50 +108,51 @@ def user_page(request, name):
 
     return render(request, 'core/user_page.html', context)
 
-def check_interactions(user, post_id, status):                                                      #when you add deltee coment function, change it to check 
-    coment_status = False                                                                           #coment exist, then change interaction status
+def check_interactions(user, post_id, status):
+    if status in ['ca', 'la', 'da']:                                                                 #If user wants to add interaction, but there alredy exist then adds nothing
+        try:
+            Interractions.objects.get(person=user, post=post_id)
+        except:
+            Interractions.objects.create(
+                person = user,
+                post = post_id
+            )
+        return True                                                                              
+
+    like_status = False                                                                            #If there is no coment thent like status is False
     try:
-        coment = Coment.objects.get(comented_post=post_id, owner=user)
-        coment_status = True
+        Like.objects.get(post=post_id, person=user)
     except:
-        pass    
-    if status is False:
-        iter = Interractions.objects.get(person=user, post=post_id)
-        iter.delete()
+        like_status = True
+    dislike_status = False
+    try:
+        Dislike.objects.get(post=post_id, person=user)
+    except:
+        dislike_status = True
+    coment_status = False
+    try:
+        Coment.objects.get(owner=user, comented_post=post_id)
+    except:
+        coment_status = True
+    print(like_status, dislike_status, coment_status, status)
+
+    if status == 'ld':
+        if (dislike_status is True) and (coment_status is True):                                   #If user want to delete like, but there already exists dislike or coment then return nothing
+            iter = Interractions.objects.get(person=user, post=post_id)
+            iter.delete()
         return True
-    Interractions.objects.create(
-        person = user,
-        post = post_id
-    )
-    return True
+    if status == 'dd':
+        if (like_status is True) and (coment_status is True):
+            iter = Interractions.objects.get(person=user, post=post_id)
+            iter.delete()
+        return True
+    if status == 'cd':
+        if (like_status is True) and (dislike_status is True):
+            iter = Interractions.objects.get(person=user, post=post_id)
+            iter.delete()
+        return True
 
 def user_interactions(request, username):
     user_req = Account.objects.get(username=username)
-    likes = Like.objects.filter(person = user_req.id)
-    dislikes = Dislike.objects.filter(person = user_req.id)
-    coments = Coment.objects.filter(owner = user_req.id)
-    posts = likes | dislikes | coments
-    context = {'user_req':user_req, 'posts':posts}
+    context = {'user_req':user_req}
     return render(request, 'core/user_post_interactions.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

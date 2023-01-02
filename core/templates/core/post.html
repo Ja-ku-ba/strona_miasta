@@ -78,7 +78,7 @@
             </form>
         </div>
         <div id="coment-section">
-            <form method="POST" action="">
+            <form method="POST" action="{% url 'coment_add' post_infos.id  %}">
                 {% csrf_token %}
                 <div id="add-coment-elements">
                     <div id="add-coment-input">
@@ -91,7 +91,6 @@
             <hr>
             <div class="list-group">
                 {% for coment in coments %}
-                    <button type="button" class="list-group-item list-group-item-action">
                         <div class="card">
                             <div class="card-header">
                             {{coment.owner}}, {{coment.added}}
@@ -133,7 +132,6 @@
                             </blockquote>
                             </div>
                         </div>
-                    </button>
                 {% endfor %}
             </div>
         </div>

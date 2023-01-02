@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Post, Coment, get_image_filepath
 from .forms import PostForm, ComentForm
 from users.models import Account
+from core.views import check_interactions
 # Create your views here.
 
 def post_coment(request):
@@ -41,7 +42,7 @@ def post_edit(request, pk):
         if title_req != "":
             post.title = title_req
         if body_req != "":
-            post.req = body_req
+            post = body_req
         post.save()
         return redirect("posts_list")
     context = {'post':post}
@@ -73,7 +74,8 @@ def coment_add(request, pk):
                 comented_post = comented_post_request,
                 body = request.POST.get('body')
             )
-            return True
+            check_interactions(request.user, comented_post_request, 'ca')
+            return redirect('post', pk)
 
 def coment_delete(request, pk, user_req):
     coment = Coment.objects.get(id=pk)
@@ -81,6 +83,7 @@ def coment_delete(request, pk, user_req):
     if coment.owner == user:
         if request.method == 'POST':
             coment.delete()
+            check_interactions(request.user, coment.comented_post.id, 'cd')
             return redirect('post', coment.comented_post.id)
     messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
     return redirect('post', coment.comented_post.id)
