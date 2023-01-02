@@ -2,19 +2,30 @@
 {% block content %}
 <div id="feed-width">
     {% for message in messages_users %}
-        <div>
-            {% if message.person == request.user %}
-            <div class="list-group text-left">
-                <button type="button" class="list-group-item list-group-item-action">{{message}}</button>
-            </div>
-            {% else %}
-                <div class="list-group text-right">
-                    <button type="button" class="list-group-item list-group-item-action">{{message}}</button>
+        {% if message.person.id == request.user.id %}
+            <div class="card text-right">
+                <div class="card-header">
+                    {{message.person}}, {{message.added}}
                 </div>
-            {% endif %}
-            <br>
-        </div>
+                <div class="card-body">
+                    <p class="card-text">{{message}}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="list-group text-left">
+                <div class="card">
+                    <div class="card-header">
+                        {{message.person}}, {{message.added}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{message}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <br>
     {% endfor %}
+    <div id="maessages-field-gap"></div>
     <div id="chat-input">
         <form method="POST" action="{% url 'message_add' room.id request.user.id %}">
             {% csrf_token %}

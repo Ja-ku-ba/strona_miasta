@@ -203,3 +203,7 @@
     width: 60%;
     margin: auto;
 }
+
+#maessages-field-gap {
+    height: 100px;
+}

@@ -18,7 +18,7 @@ def create_room(request, pk):
             owner2 = user_2
         )
     messages_users = room.message_set.all()
-    context = {'messages_users':messages_users, 'room':room}
+    context = {'messages_users':messages_users, 'room':room, 'user_1':user_1}
     return render(request, 'core/chat.html', context)
 
 
