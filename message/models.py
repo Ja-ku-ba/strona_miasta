@@ -4,11 +4,10 @@ from users.models import Account
 # Create your models here.
 
 class MessagesRoom(models.Model):
-    owners = models.ManyToManyField(Account)
-    created = models.DateTimeField(auto_now=True)
+    owner1 = models.ForeignKey(Account, related_name="owner1", on_delete=models.SET_NULL, blank=True, null=True)
+    owner2 = models.ForeignKey(Account, related_name="owner2", on_delete=models.SET_NULL, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.owners}'
 
 
 class Message(models.Model):

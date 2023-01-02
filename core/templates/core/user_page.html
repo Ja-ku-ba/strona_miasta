@@ -8,6 +8,12 @@
         <div class="container-info">
             {% include 'core/infos_profile.html' %}
         </div>
+    {% else %}
+        <div class="container-info">
+            <div class="list-group">
+                <a href="{% url 'create_room' user_req.id %}" class="list-group-item btn-outline-secondary">Napisz wiadomość</a>
+            </div>
+        </div>
     {% endif %}
 </div>
 {% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="feed-width">
+    {% for message in messages_users %}
+        <div>
+            {% if message.person == request.user %}
+            <div class="list-group text-left">
+                <button type="button" class="list-group-item list-group-item-action">{{message}}</button>
+            </div>
+            {% else %}
+                <div class="list-group text-right">
+                    <button type="button" class="list-group-item list-group-item-action">{{message}}</button>
+                </div>
+            {% endif %}
+            <br>
+        </div>
+    {% endfor %}
+    <div id="chat-input">
+        <form method="POST" action="{% url 'message_add' room.id request.user.id %}">
+            {% csrf_token %}
+            <div id="add-coment-elements">
+                <div id="add-coment-input">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body"></textarea>
+                </div>
+                <input type="submit" value="Potwierdź">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

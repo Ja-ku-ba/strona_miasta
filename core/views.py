@@ -156,3 +156,5 @@ def user_interactions(request, username):
     posts_interacted = Interractions.objects.filter(person = user_req.id)
     context = {'user_req':user_req, 'posts_interacted':posts_interacted}
     return render(request, 'core/user_post_interactions.html', context)
+
+
