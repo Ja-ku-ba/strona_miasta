@@ -5,8 +5,17 @@
         {% include 'core/feed.html' %}
     </div>
     {% if request.user == user_req %}
-        <div class="container-info">
-            {% include 'core/infos_profile.html' %}
+        <div class="container-info"><div id="sticky">
+            <div class="list-group">
+                <a href="#" class="list-group-item btn-outline-secondary">Wiadmoosci</a>
+            </div>
+            <div class="list-group">
+                <a href="{% url 'user_interactions' user_req.username %}" class="list-group-item btn-outline-secondary">Interakcja z postami</a>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item btn-outline-secondary">Zarzadzaj kontem</a>
+            </div>
+        </div>
         </div>
     {% else %}
         <div class="container-info">

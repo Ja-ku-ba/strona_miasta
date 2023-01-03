@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<div>
-    {% for district in districts %}
-    <a href="{% url 'district_form' district.id %}">{{district}}</a>
-    <br>
-    {% endfor %}
-</div>
-{% endblock %}

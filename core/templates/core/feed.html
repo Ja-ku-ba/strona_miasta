@@ -3,9 +3,9 @@
         <div class="card text-center" id="feed-card">
             <div class="card-header">
                 {% if request.user != post.owner %}
-                    <a class="btn btn-primary" href="{% url 'create_room' post.owner.id %}" role="button">@{{post.owner}}</a>
+                    <a class="user-page-link" href="{% url 'create_room' post.owner.id %}">@{{post.owner}}</a>
                 {% else %}
-                    <a class="btn btn-primary" href="#" role="button">@{{post.owner}}</a>
+                    <a class="user-page-link" href="{% url 'create_room' post.owner.id %}">@{{post.owner}}</a>
                 {% endif %}
                 , {{post.added}}
             </div>

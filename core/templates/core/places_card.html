@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-container">
+    <div id="feed-width">
+        {% for local in locals %}
+            <div class="card text-center" id="feed-card">
+                <div class="card-header">
+                    {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{local.description}}</p>
+                    {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="feed-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-primary" href="#" role="button">Zobacz więcej</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="container-info"><div id="sticky">
+        <div class="list-group">
+            <a href="#" class="list-group-item btn-outline-secondary">Twoje miejsca</a>
+        </div>
+        <div class="list-group">
+            <a href="{% url 'local_add' %}" class="list-group-item btn-outline-secondary">Stwórz miejsce</a>
+        </div>
+        <div class="list-group">
+            <a href="#"  class="list-group-item btn-outline-secondary">Chcę odwiedzić</a>
+        </div>
+        <div class="list-group">
+            <a href="#"  class="list-group-item btn-outline-secondary">Opinie</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

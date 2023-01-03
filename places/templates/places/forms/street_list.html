@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<div>
-    {% for street in streets %}
-        <a href="{% url 'street_form' street.id %}">{{street}}</a>
-        <br>
-    {% endfor %}
-</div>
-{% endblock %}

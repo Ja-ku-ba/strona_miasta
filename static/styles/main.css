@@ -98,6 +98,11 @@
     flex-direction: row;
     justify-content: center;
 }
+
+a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.user-page-link:link {
+    color: black;
+    text-decoration: none;
+}
 /* end feed */
 
 
@@ -207,3 +212,4 @@
 #maessages-field-gap {
     height: 100px;
 }
+/* end chat */

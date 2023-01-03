@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
 <div class="page-container">
     <div class="container-content">
         {% include 'core/feed.html' %}
     </div>
     {% if request.user.is_authenticated %}
-        <div class="container-info">
-            {% include 'core/infos.html' %}
+        <div class="container-info"><div id="sticky">
+            <div class="list-group">
+                <a href="{% url 'post_add' %}" class="list-group-item btn-outline-secondary">Dodaj post</a>
+            </div>
+            <div class="list-group">
+                <a href="{% url 'local_list' %}"  class="list-group-item btn-outline-secondary">Miejsca</a>
+            </div>
+        </div>
         </div>
     {% endif %}
 </div>
