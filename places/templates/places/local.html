@@ -2,25 +2,88 @@
 {% block content %}
 <div class="page-container">
     <div id="feed-width">
-                <div class="card text-center m-2">
-                    <div class="card-header">
-                        {{local.name}}, {{local.local_addres}} {{local.local_street}}
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{local.description}}</p>
-                        {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
-                    </div>
-                <hr>
-                <form method="POST" action="{% url 'rating_add' local.id %}" id="local-opinion-form">
-                    {% csrf_token %}
-                    <div class="add-coment-elements">
-                        <div class="add-opinion-input" >
-                            <textarea class="form-control" rows="1" name="opinion" placeholder="Dodaj opinię o lokalu {{local.name}}"></textarea>
-                            <input type="submit" value="Dodaj">
+        <div class="card text-center m-2">
+            <div class="card-header">
+                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{local.description}}</p>
+                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+            </div>
+        <hr>
+
+        <form method="POST" action="{% url 'rating_add' local.id %}" id="local-opinion-form">
+            {% csrf_token %}
+            <div class="add-coment-elements">
+                <div class="add-opinion-input" >
+                    <textarea class="form-control" rows="1" name="opinion" placeholder="Dodaj opinię o lokalu {{local.name}}"></textarea>
+                    <input type="submit" value="Dodaj">
+                </div>
+            </div>
+        </form>
+        <hr>
+
+        <div class="list-group">
+            {% for opinion in opinions %}
+                    <div class="card">
+                        <div opinion="card-header">
+                            {{opinion.person}}, {{opinion.added}}
+                            {% if request.user == opinion.person %}
+                             
+                                <!-- Button trigger modal -->
+                                <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal2">
+                                    Usuń opinię
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Usuń opinię</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Czy na pewno chcesz usunąć tą opinię?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="POST" action="{% url 'rating_delete' opinion.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-primary" name="coment">Tak</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{opinion.opinion}}</p>
+                        </blockquote>
                         </div>
                     </div>
-                </form>
-                <hr>
-            </div>
+            {% endfor %}
+        </div>
+
     </div>
+    </div>    
+
+
+    <div class="container-info"><div id="sticky">
+        <div class="list-group">
+            <h5 class="list-group-item btn-outline-secondary">Produkty:</h5>
+        </div>
+        {% for product in products %}
+            <div class="list-group">
+                <a href="#"  class="list-group-item btn-outline-secondary">{{product.name}}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+
+</div>
 {% endblock %}

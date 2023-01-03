@@ -15,6 +15,5 @@ urlpatterns = [
     
     path('rating_list', views.rating_list, name='rating_list'),
     path('rating_add/<str:pk>', views.rating_add, name='rating_add'),
-    path('rating_edit/<str:pk>', views.rating_edit, name='rating_edit'),
-    path('rating_delete/<str:pk>', views.rating_delete, name='rating_delete'),
+    path('usun_opinie/<str:pk>', views.rating_delete, name='rating_delete'),
 ]
