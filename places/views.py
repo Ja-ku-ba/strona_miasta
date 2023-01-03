@@ -54,9 +54,10 @@ def local_add(request):
                 name = name_request, 
                 description = description_request,
                 local_street = Street.objects.get(name=local_street_request),
-                local_addres = local_addres_request
+                local_addres = local_addres_request,
+                owner = request.user
             )
-            return redirect('home')
+            return redirect('local_list')
     return render(request, 'places/forms/local_add.html', context)
 
 def local_delete(request, pk):
