@@ -13,7 +13,7 @@
                         {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
                     </div>
                     <div class="card-footer text-muted">
-                        <a class="btn btn-primary" href="#" role="button">Zobacz więcej</a>
+                        <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
                     </div>
                 </div>
             {% endfor %}

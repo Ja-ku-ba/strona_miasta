@@ -10,7 +10,12 @@ from .models import Locals, LocalProducts, LocalStaff, LocalRating, Street
 def local_list(request):
     locals = Locals.objects.all()
     context = {'locals':locals}
-    return render(request, 'core/places_card.html', context)
+    return render(request, 'places/places_card.html', context)
+
+def local(request, pk):
+    local = Locals.objects.get(id=pk)
+    context = {'local':local}
+    return render(request, 'places/local.html', context)
 
 def local_form(request, pk):                                                   #local edit
     local = Locals.objects.get(id=pk)
@@ -102,15 +107,15 @@ def rating_list(request):
     context = {'ratings':ratings}
     return render(request, 'places/forms/rating_list.html', context)
 
-def rating_add(request):
-    form = LocalRatingForm()
-    context = {'form':form}
+def rating_add(request, pk):
+    local_req = Locals.objects.get(id=pk)
     if request.method == "POST":
-        form = LocalRatingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('rating_list')
-    return render(request, 'places/forms/rating_add.html', context)
+        LocalRating.objects.create(
+            opinion = request.POST.get('opinion'),
+            local = local_req,
+            person = request.user
+        )
+        return redirect('local', local_req.id)
 
 def rating_edit(request, pk):
     rating = LocalRating.objects.get(id=pk)

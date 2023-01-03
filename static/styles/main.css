@@ -231,3 +231,19 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
     width: 30%;
     height: auto;
 }
+/* end locals page */
+
+/* local page */
+.add-opinion-input {
+    display: flex;
+    justify-content: center;
+}
+
+#local-opinion-form {
+    width: 80%;
+    margin: auto;
+}
+
+.opinion-body {
+    width: 80%;
+}

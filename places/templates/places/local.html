@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-container">
+    <div id="feed-width">
+                <div class="card text-center m-2">
+                    <div class="card-header">
+                        {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{local.description}}</p>
+                        {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                    </div>
+                <hr>
+                <form method="POST" action="{% url 'rating_add' local.id %}" id="local-opinion-form">
+                    {% csrf_token %}
+                    <div class="add-coment-elements">
+                        <div class="add-opinion-input" >
+                            <textarea class="form-control" rows="1" name="opinion" placeholder="Dodaj opinię o lokalu {{local.name}}"></textarea>
+                            <input type="submit" value="Dodaj">
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            </div>
+    </div>
+{% endblock %}

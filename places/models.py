@@ -25,7 +25,6 @@ class Locals(models.Model):
     local_addres = models.CharField(max_length=16)
     logo = models.ImageField(max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True)
 
-
     def __str__(self):
         return self.name
 
@@ -52,9 +51,13 @@ class LocalProducts(models.Model):
 
 class LocalRating(models.Model):
     opinion = models.TextField(blank=True, null=True)
-    rating = models.IntegerField()
+    rating = models.IntegerField(blank=True, null=True)
     local = models.ForeignKey(Locals, on_delete=models.CASCADE)
     person = models.ForeignKey(Account, on_delete=models.CASCADE)
+    added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.local}, {self.rating}, {self.person}'
+
+    class Meta:
+        ordering = ['-added']
