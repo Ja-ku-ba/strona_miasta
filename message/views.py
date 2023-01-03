@@ -34,3 +34,11 @@ def message_add(request, room_id, user_id):
     if users.owner1.id != request.user.id:
         return redirect('create_room', users.owner1.id)
     return redirect('create_room', users.owner2.id)
+
+
+def messages_list(request):
+    user_first = MessagesRoom.objects.filter(owner1 = request.user)
+    user_second = MessagesRoom.objects.filter(owner2 = request.user)
+    user_messages_rooms = user_first | user_second
+    context = {'user_messages_rooms':user_messages_rooms}
+    return render(request, 'message/chat_list.html', context)

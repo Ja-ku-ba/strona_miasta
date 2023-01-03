@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="feed-width">
+    {% for data in user_messages_rooms %}
+        <div class="card text-center btn btn-outline-dark" id="feed-card">
+            <div class="card-header">
+                {% if request.user == data.owner1 %}
+                    <a class="" href="{% url 'create_room' data.owner2.id %}" role="button">{{data.owner2}} : {{data.owner1}}</a>
+                {% else %}
+                    <a class="" href="{% url 'create_room' data.owner1.id %}" role="button">{{data.owner1}} : {{data.owner2}}</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
