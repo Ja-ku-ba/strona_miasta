@@ -2,22 +2,24 @@
 {% block content %}
 <div class="page-container">
     <div id="feed-width">
-        {% for local in locals %}
-            <div class="card text-center" id="feed-card">
-                <div class="card-header">
-                    {{local.name}}, {{local.local_addres}} {{local.local_street}}
+        <div id="page-container-locals">
+            {% for local in locals %}
+                <div class="card text-center m-2" id="local-card">
+                    <div class="card-header">
+                        {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{local.description}}</p>
+                        {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a class="btn btn-primary" href="#" role="button">Zobacz więcej</a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">{{local.description}}</p>
-                    {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="feed-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
-                </div>
-                <div class="card-footer text-muted">
-                    <a class="btn btn-primary" href="#" role="button">Zobacz więcej</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-    
+        
     <div class="container-info"><div id="sticky">
         <div class="list-group">
             <a href="#" class="list-group-item btn-outline-secondary">Twoje miejsca</a>

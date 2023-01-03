@@ -213,3 +213,21 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
     height: 100px;
 }
 /* end chat */
+
+
+/* locals page */
+#page-container-locals {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+#local-image {
+    width: 20%;
+    max-height: 30%;
+}
+
+#local-card {
+    width: 30%;
+    height: auto;
+}
