@@ -8,8 +8,8 @@ urlpatterns = [
     path('local_delete/<str:pk>', views.local_delete, name='local_delete'),
     path('lokal/<str:pk>', views.local, name='local'),
 
-    path('product_list', views.product_list, name='product_list'),
-    path('product_add', views.product_add, name='product_add'),
+    path('produkt/<str:pk>', views.product, name='product'),
+    path('product_add/<str:pk>', views.product_add, name='product_add'),
     path('product_edit/<str:pk>', views.product_edit, name='product_edit'),
     path('product_delete/<str:pk>', views.product_delete, name='product_delete'),
     

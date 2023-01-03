@@ -4,7 +4,7 @@ from django.contrib import messages
 
 #self made
 from .forms import LocalsForm, LocalProductsForm, LocalStaff, LocalRatingForm
-from .models import Locals, LocalProducts, LocalStaff, LocalRating, Street
+from .models import Locals, LocalProducts, LocalStaff, LocalRating, Street, LocalProductRating
 
 # Create your views here.
 def local_list(request):
@@ -67,20 +67,29 @@ def local_delete(request, pk):
     return render(request, 'places/forms/local_delete.html', {'local_request':local_request})
 
 
-def product_list(request):
-    products = LocalProducts.objects.all()
-    context = {'products':products}
-    return render(request, 'places/forms/product_list.html', context)
+def product(request, pk):
+    product = LocalProducts.objects.get(id=pk)
+    local = Locals.objects.get(id=product.product_local.id)
+    opinions = LocalProductRating.objects.filter(product=product)
 
-def product_add(request):
-    form = LocalProductsForm()
-    context = {'form':form}
+    if request.method == "POST":                                                                   #new opinion about product
+        LocalProductRating.objects.create(
+            opinion = request.POST.get('opinion'),
+            person = request.user,
+            product = product,
+        )
+        return redirect('product', product.id)
+
+    context = {'product':product, 'local':local, 'opinions':opinions}
+    return render(request, 'places/product.html', context)
+
+def product_add(request, pk):
+    local = Locals.objects.get(id=pk)
     if request.method == 'POST':
-        form = LocalProductsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    return render(request, 'places/forms/product_add.html', context)
+        new_produc = LocalProducts.objects.create(
+
+        )
+    return render(request, 'places/forms/product_add.html')
 
 def product_edit(request, pk):
     product = LocalProducts.objects.get(id=pk)
@@ -100,9 +109,7 @@ def product_delete(request, pk):
     product = LocalProducts.objects.get(id=pk)
     if request.method == "POST":
         product.delete()
-        return redirect('product_list')
-    return render(request, 'places/forms/product_delete.html')
-
+        return redirect('local', product.product_local.id)
 
 def rating_list(request):
     ratings = LocalRating.objects.all()
@@ -120,8 +127,15 @@ def rating_add(request, pk):
         return redirect('local', local_req.id)
 
 def rating_delete(request, pk):
-    rating = LocalRating.objects.get(id=pk)
-    if request.method == 'POST':
-        rating.delete()
-        messages.info(request, 'Opinia została pomyślnie usunięta.')
-        return redirect('local', rating.local.id)
+    try:
+        rating = LocalRating.objects.get(id=pk)
+        if request.method == 'POST':
+            rating.delete()
+            messages.info(request, 'Opinia została pomyślnie usunięta.')
+            return redirect('local', rating.local.id)
+    except:
+        rating = LocalProductRating.objects.get(id=pk)
+        if request.method == 'POST':
+            rating.delete()
+            messages.info(request, 'Opinia została pomyślnie usunięta.')
+            return redirect('product', rating.product.id)
