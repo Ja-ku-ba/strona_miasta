@@ -6,10 +6,10 @@
             <div class="card-header">
                 {% if request.user == data.owner1 %}
                     <a class="" href="{% url 'create_room' data.owner2.id %}" role="button">{{data.owner2}} : {{data.owner1}}</a> | 
-                    <a href="#">Usuń chat</a>
+                    <a href="{% url 'delete_chat' data.owner2.id %}">Usuń chat</a>
                 {% else %}
                     <a class="" href="{% url 'create_room' data.owner1.id %}" role="button">{{data.owner1}} : {{data.owner2}}</a> | 
-                    <a href="#">Usuń chat</a>
+                    <a href="{% url 'delete_chat' data.owner1.id %}">Usuń chat</a>
                 {% endif %}
             </div>
         </div>

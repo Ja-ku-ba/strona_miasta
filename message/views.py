@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
-from .models import MessagesRoom, Message
+from .models import MessagesRoom, Message, RoomDeleteAsk
 from users.models import Account
 # Create your views here.
 
@@ -19,7 +20,7 @@ def create_room(request, pk):
         )
     messages_users = room.message_set.all()
     context = {'messages_users':messages_users, 'room':room, 'user_1':user_1}
-    return render(request, 'core/chat.html', context)
+    return render(request, 'message/chat.html', context)
 
 
 def message_add(request, room_id, user_id):
@@ -43,12 +44,33 @@ def messages_list(request):
     context = {'user_messages_rooms':user_messages_rooms}
     return render(request, 'message/chat_list.html', context)
 
-def delete_chat(request, second_user_id):
+def ask(request, second_user_id):
     user_second = Account.objects.get(id=second_user_id)
     try:
-        room = MessagesRoom.objects.get(owner1=request.user, owner2=user_second)
+        room_req = MessagesRoom.objects.get(owner1=request.user, owner2=user_second)
+        ask_exists = RoomDeleteAsk.objects.filter(room=room_req).exists()
+        if ask_exists is False:
+            RoomDeleteAsk.objects.create(
+                user1_ask = request.user,
+                room = room_req
+            )
+        else:
+            room_req.delete()
+            RoomDeleteAsk.objects.get(room = room_req).delete()
+            messages.info(request, 'Chat został pomyślnie usunięty')
+        return redirect('chat_list')
+
         
     except:
-        room = MessagesRoom.objects.get(owner1=user_second, owner1=request.user)
-
-    return render('')
+        room_req = MessagesRoom.objects.get(owner1=user_second, owner2=request.user)
+        ask_exists = RoomDeleteAsk.objects.filter(room=room_req).exists()
+        if ask_exists is False:
+            RoomDeleteAsk.objects.create(
+                user1_ask = request.user,
+                room = room_req
+            )
+        else:
+            room_req.delete()
+            RoomDeleteAsk.objects.get(room = room_req).delete()
+            messages.info(request, 'Chat został pomyślnie usunięty')
+    return redirect('chat_list')

@@ -7,5 +7,5 @@ urlpatterns = [
     
     path('wyslij_wiadomosc/<str:room_id>/<str:user_id>', views.message_add, name='message_add'),
 
-    path('usun_chat/<str:second_user_id>', views.delete_chat, name='delete_chat')
+    path('usun_chat/<str:second_user_id>', views.ask, name='delete_chat')
 ]

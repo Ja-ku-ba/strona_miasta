@@ -10,10 +10,16 @@ class MessagesRoom(models.Model):
     class Meta:
         ordering = ['-created']
 
+    def __str__(self):
+        return f'{self.owner1}, {self.owner2}'
+
 class RoomDeleteAsk(models.Model):
     user1_ask = models.ForeignKey(Account, on_delete=models.SET_NULL, related_name='ask', null=True, blank=True)
-    room = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
+    room = models.ForeignKey(MessagesRoom, on_delete=models.SET_NULL, null=True, blank=True)
     user2_conf = models.ForeignKey(Account, on_delete=models.SET_NULL, related_name='confirmation', null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.room}'
 
 
 class Message(models.Model):
