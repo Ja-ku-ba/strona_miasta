@@ -42,3 +42,13 @@ def messages_list(request):
     user_messages_rooms = user_first | user_second
     context = {'user_messages_rooms':user_messages_rooms}
     return render(request, 'message/chat_list.html', context)
+
+def delete_chat(request, second_user_id):
+    user_second = Account.objects.get(id=second_user_id)
+    try:
+        room = MessagesRoom.objects.get(owner1=request.user, owner2=user_second)
+        
+    except:
+        room = MessagesRoom.objects.get(owner1=user_second, owner1=request.user)
+
+    return render('')
