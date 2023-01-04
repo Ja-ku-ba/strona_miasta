@@ -223,8 +223,8 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
 }
 
 #local-image {
-    width: 20%;
-    max-height: 30%;
+    max-width: 100%;
+    height: auto;
 }
 
 #local-card {

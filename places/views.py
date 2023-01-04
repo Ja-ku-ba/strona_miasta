@@ -38,7 +38,7 @@ def local_form(request, pk):                                                   #
     return render(request, 'places/forms/local_form.html', context)
 
 def local_add(request):
-    form = LocalsForm()
+    form = LocalsForm(request.POST, request.FILES)
     streets = Street.objects.all()
     context = {'form':form, 'streets':streets}
     if request.method == 'POST':
@@ -50,13 +50,15 @@ def local_add(request):
             messages.info(request, 'Aby klienci wiedzieli o tym miejscu musisz podać adres, ulice, nazwę.')
             return redirect('home')
         else:
-            Locals.objects.create(
+            new_local = Locals.objects.create(
                 name = name_request, 
                 description = description_request,
                 local_street = Street.objects.get(name=local_street_request),
                 local_addres = local_addres_request,
                 owner = request.user
             )
+            new_local.logo = request.FILES.get('logo')
+            new_local.save()
             return redirect('local_list')
     return render(request, 'places/forms/local_add.html', context)
 
@@ -86,11 +88,19 @@ def product(request, pk):
 
 def product_add(request, pk):
     local = Locals.objects.get(id=pk)
+    form = LocalProductsForm(request.POST, request.FILES)
     if request.method == 'POST':
-        new_produc = LocalProducts.objects.create(
-
+        new_product = LocalProducts.objects.create(
+            name = request.POST.get('name'),
+            description = request.POST.get('description'),
+            price = request.POST.get('price'),
+            product_local = local
         )
-    return render(request, 'places/forms/product_add.html')
+        new_product.product_image = request.FILES.get('product_image')
+        new_product.save()
+        return redirect('local', local.id)
+    context = {'form':form}
+    return render(request, 'places/forms/product_add.html', context)
 
 def product_edit(request, pk):
     product = LocalProducts.objects.get(id=pk)
