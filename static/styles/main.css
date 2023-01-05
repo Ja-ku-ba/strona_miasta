@@ -231,6 +231,14 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
     width: 30%;
     height: auto;
 }
+
+#local-info {
+    position: absolute;
+    left: 50%;
+    top: 63px;
+    transform: translate(-50%, 0);
+    width: 60%;
+}
 /* end locals page */
 
 /* local page */
