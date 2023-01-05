@@ -14,7 +14,7 @@ def local_list(request):
 
 def local(request, pk):
     local = Locals.objects.get(id=pk)
-    products = LocalProducts.objects.filter(product_local=local)
+    products = LocalProducts.objects.filter(product_local=local).order_by('name')
     opinions = LocalRating.objects.filter(local=local)
     context = {'local':local, 'products':products, 'opinions':opinions}
     return render(request, 'places/local.html', context)
