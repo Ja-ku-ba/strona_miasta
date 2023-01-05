@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="page-container">
+    <div class="container-info">
+        <div class="list-group">
+            {% for local in locals %}
+                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">@{{local.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
     <div class="container-content">
         {% include 'core/feed.html' %}
     </div>

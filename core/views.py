@@ -5,6 +5,7 @@ from django.contrib import messages
 
 
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
+from places.models import Locals, Street
 # Create your views here.
 
 def home(request):
@@ -24,7 +25,12 @@ def search(request):
         Q(title__icontains=q) |
         Q(body__icontains=q)   
     )
-    context = {'posts':posts, 'people':people, 'posts':posts}
+    locals = Locals.objects.filter(
+        Q(name__icontains=q) |
+        Q(description__icontains=q) |
+        Q(local_addres__icontains=q)
+    )
+    context = {'posts':posts, 'people':people, 'posts':posts, 'locals':locals}
     return render(request, 'core/search_results.html', context)
 
 def post(request, pk):
