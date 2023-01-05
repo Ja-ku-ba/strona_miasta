@@ -48,7 +48,7 @@ def local_add(request):
         local_addres_request = request.POST.get('local_addres')
         if name_request == '' or local_street_request == '' or local_addres_request == '':
             messages.info(request, 'Aby klienci wiedzieli o tym miejscu musisz podać adres, ulice, nazwę.')
-            return redirect('home')
+            return redirect('local_add')
         else:
             new_local = Locals.objects.create(
                 name = name_request, 

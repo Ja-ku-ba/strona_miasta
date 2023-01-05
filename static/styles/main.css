@@ -255,3 +255,12 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
 .opinion-body {
     width: 80%;
 }
+/* end local page */
+
+/* product page */
+.price-pos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+/* end product page */

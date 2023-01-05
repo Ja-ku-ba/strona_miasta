@@ -22,8 +22,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 mr-auto"><div class="form__group">
-                                <label for="street" class="col-form-label add-post-title">Wybierz ulicę:</label>
-                                <input required type="text" class="form-control" name="local_street" id="street" list="street-list"/>
+                                <input required type="text" class="form-control" name="local_street" id="street" list="street-list" placeholder='ul. Wolna'/>
                                 <datalist id="street-list">
                                     <select id="street">
                                         {% for street in streets %}
