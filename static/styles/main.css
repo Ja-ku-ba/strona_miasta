@@ -201,6 +201,18 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
 /* end post page */
 
 
+/* chat list page */
+a.chat-page-links:link, a.chat-page-links:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a.chat-page-links:active, a.chat-page-links:hover {
+    color: white;
+    text-decoration: none;
+}
+/* end chat list page */
+
 /* chat */
 #chat-input {
     position: fixed;
@@ -264,3 +276,9 @@ a.user-page-link:hover, a.user-page-link:visited, a.user-page-link:active, a.use
     justify-content: center;
 }
 /* end product page */
+
+/* search results */
+.search {
+    display: flex;
+}
+/* end search results */

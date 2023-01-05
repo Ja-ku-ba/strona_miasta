@@ -1,23 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="page-container">
-    <div class="container-info">
-        <div class="list-group">
-            {% for local in locals %}
-                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">@{{local.name}}</a>
-            {% endfor %}
-        </div>
-    </div>
     <div class="container-content">
         {% include 'core/feed.html' %}
     </div>
-    <div class="container-info">
+    {% if districts is not None or streets is not None %}
+    <div class="container-info search">
         <div class="list-group">
-            {% for human in people %}
-                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">@{{human}}</a>
+            <h5 href="#" class="list-group-item list-group-item-action text-center">Miejsca</h5>
+            {% for district in districts %}
+                <a href="#" class="list-group-item list-group-item-action">@{{district.name}}</a>
+            {% endfor %}
+            {% for street in streets %}
+                <a href="#" class="list-group-item list-group-item-action">@{{street.name}}</a>
             {% endfor %}
         </div>
     </div>
+    {% endif %}
+    {% if people is not None %}
+        <div class="container-info search">
+            <div class="list-group">
+                <h5 href="#" class="list-group-item list-group-item-action text-center">Użytkownicy</h5>
+                {% for human in people %}
+                    <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">@{{human}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if locals is not None %}
+        <div class="container-info search">
+            <div class="list-group">
+                <h5 href="#" class="list-group-item list-group-item-action text-center">Lokale</h5>
+                {% for local in locals %}
+                    <a href="#" class="list-group-item list-group-item-action">@{{local.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </div>
-
 {% endblock %}
+
+
+
