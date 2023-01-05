@@ -4,7 +4,7 @@
 <div id="feed-width">
     <div class="card text-center" id="feed-card">
         <div class="card-header">
-            @{{post_infos.owner}}, {{post_infos.added}}
+            <a class="user-page-link" href="{% url 'user_page' post_infos.owner %}">@{{post_infos.owner}}</a>, {{post_infos.added}}
             {% if request.user == post_infos.owner %}
              
                 <!-- Button trigger modal -->
@@ -93,7 +93,7 @@
                 {% for coment in coments %}
                         <div class="card">
                             <div class="card-header">
-                            {{coment.owner}}, {{coment.added}}
+                                <a class="user-page-link" href="{% url 'user_page' coment.owner %}">@{{coment.owner}}</a>, {{coment.added}}
                             {% if request.user == coment.owner %}
                              
                                 <!-- Button trigger modal -->

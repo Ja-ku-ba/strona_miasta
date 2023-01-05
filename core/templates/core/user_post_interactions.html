@@ -5,7 +5,7 @@
         {% for interaction in posts_interacted %}
             <div class="card text-center" id="feed-card">
                 <div class="card-header">
-                    @{{interaction.post.owner}}, {{interaction.post.added}}
+                    <a class="user-page-link" href="{% url 'user_page' interaction.post.owner %}">@{{interaction.post.owner}}</a>, {{interaction.post.added}}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{interaction.post.title}}</h5>

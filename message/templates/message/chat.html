@@ -5,7 +5,7 @@
         {% if message.person.id == request.user.id %}
             <div class="card text-right">
                 <div class="card-header">
-                    {{message.person}}, {{message.added}}
+                    <a class="user-page-link" href="{% url 'user_page' message.person %}">@{{message.person}}</a>, {{message.added}}
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{message}}</p>
@@ -15,7 +15,7 @@
             <div class="list-group text-left">
                 <div class="card">
                     <div class="card-header">
-                        {{message.person}}, {{message.added}}
+                        <a class="user-page-link" href="{% url 'user_page' message.person %}">@{{message.person}}</a>, {{message.added}}
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{message}}</p>

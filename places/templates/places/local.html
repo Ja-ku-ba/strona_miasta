@@ -58,7 +58,7 @@
                     {% for opinion in opinions %}
                             <div class="card">
                                 <div opinion="card-header">
-                                    {{opinion.person}}, {{opinion.added}}
+                                    <a class="user-page-link" href="{% url 'user_page' opinion.person %}">@{{opinion.person}}</a>, {{opinion.added}}
                                     {% if request.user == opinion.person %}
                                     
                                         <!-- Button trigger modal -->

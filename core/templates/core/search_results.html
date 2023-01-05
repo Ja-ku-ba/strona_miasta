@@ -7,7 +7,7 @@
     <div class="container-info">
         <div class="list-group">
             {% for human in people %}
-                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">{{human}}</a>
+                <a href="{% url 'user_page' human %}" class="list-group-item list-group-item-action">@{{human}}</a>
             {% endfor %}
         </div>
     </div>
