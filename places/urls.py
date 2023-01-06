@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('lokale', views.local_list, name='local_list'),
-    path('local_form/<str:pk>', views.local_form, name='local_form'),
+    path('local_form/<str:pk>', views.local_edit, name='local_form'),
     path('dodaj_lokal', views.local_add, name='local_add'),
     path('local_delete/<str:pk>', views.local_delete, name='local_delete'),
     path('lokal/<str:pk>', views.local, name='local'),

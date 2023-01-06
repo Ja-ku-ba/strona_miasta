@@ -275,7 +275,14 @@ a.chat-page-links:active, a.chat-page-links:hover {
     flex-direction: row;
     justify-content: center;
 }
+
+a.edit-product:hover, a.edit-product:visited, a.edit-product:active, a.edit-product:link {
+    color: white;
+    text-decoration: none;
+    padding-top: 1px;
+}
 /* end product page */
+
 
 /* search results */
 .search {

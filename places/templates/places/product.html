@@ -4,7 +4,7 @@
 <div id="feed-width">
     <div class="card text-center" id="feed-card">
         <div class="card-header">
-            @{{product.name}}, {{product.price}}zł
+            {{product.name}}, {{product.price}}zł
             {% if request.user == local.owner %}
                 <!-- Button trigger modal -->
                 <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal">
@@ -33,6 +33,11 @@
                         </div>
                     </div>
                 </div>
+                <button type="button" class="badge badge-dark">
+                    <a href="{% url 'product_edit' product.id %}" class="edit-product">
+                        Edytuj dane
+                    </a>
+                </button>
             {% endif %}
         </div>
         <div class="card-body">

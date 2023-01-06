@@ -29,7 +29,7 @@ def remove_img(path, img_name):
     os.remove(path + '/' + img_name)
     return True
 
-def local_form(request, pk):                                                   #local edit
+def local_edit(request, pk):
     local = Locals.objects.get(id=pk)
     streets = Street.objects.all()
     if request.method == "POST":
@@ -44,7 +44,10 @@ def local_form(request, pk):                                                   #
         if request.POST.get('local_addres') != "":
             local.local_addres = request.POST.get('local_addres')
         if request.FILES.get('logo') is not None:
-            local.logo.delete()
+            try:
+                local.logo.delete()
+            except:
+                pass
             remove_img(f"C:/Users/jakub/Desktop/strona_miasta/places/static/locals/{local.id}", 'logo.png')
             local.logo = request.FILES.get('logo')
             local.save()
@@ -119,7 +122,6 @@ def product_add(request, pk):
 
 def product_edit(request, pk):
     product = LocalProducts.objects.get(id=pk)
-    context = {'product':product}
     if request.method == 'POST':
         if request.POST.get('name') != "":
             product.name = request.POST.get('name')
@@ -127,8 +129,16 @@ def product_edit(request, pk):
             product.description = request.POST.get('description')
         if request.POST.get('price') != "":
             product.description = request.POST.get('price')
-        product.save()
-        return redirect('product_list')
+        if request.FILES.get('product_image') is not None:
+            try:
+                product.product_image.delete()                                                       #if ther is no product photo
+            except:
+                pass
+            remove_img(f"C:/Users/jakub/Desktop/strona_miasta/places/static/locals/{product.product_local.id}/products/", f'{product.id}.png')
+            product.product_image = request.FILES.get('product_image')
+            product.save()
+        return redirect('product', product.id)
+    context = {'product':product}
     return render(request, 'places/forms/product_edit.html', context)
 
 def product_delete(request, pk):

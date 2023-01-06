@@ -1,18 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <label>Zmień nazwę z {{product.name}} na: </label>
-        <input type="text" name="name">
-        <br>
-        <label>Zmień opis z ,,{{product.description}}" na: </label>
-        <input type="text" name="description">
-        <br>
-        <label>Zmień cenę z {{product.price}} na: </label>
-        <input type="text" name="price">
-        <br>
-        <input type="submit" value="Potwierdź">
-    </form>
+    <div class="panels-postion" id="post-add">
+        <div class="card-body">
+            <form method="POST" action="" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <div class="card text-center" id="feed-card">
+                    <div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="title" class="col-form-label add-post-title">Zmień nazwę: </label>
+                            <div class="col-sm-8 add-post-input">
+                                <input type="text" class="form-control" id="title" name="name" placeholder="{{product.name}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group row ml-auto mr-auto">
+                                <label for="title" class="col-form-label add-post-title">Cena: </label>
+                                <div class="col-sm-10 add-post-input">
+                                    <input type="text" class="form-control" id="title" name="price" placeholder="{{product.price}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="body" class="col-form-label add-post-title">Zmień opis: </label>
+                            <div class="col-sm-9 add-post-input">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="{{product.description}}"></textarea>
+                            </div>
+                        </div>
+                        <div class="input-group d-flex justify-content-center" id="add-button">
+                            <input type="file" name="product_image">
+                        </div>
+                        <input type="submit" class="btn btn-primary" id="post-button" value="Prześlij">
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
