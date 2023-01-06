@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 #self made
-from .forms import LocalsForm, LocalProductsForm, LocalStaff, LocalRatingForm
-from .models import Locals, LocalProducts, LocalStaff, LocalRating, Street, LocalProductRating
+from .forms import LocalsForm, LocalProductsForm, LocalRatingForm
+from .models import Locals, LocalProducts, LocalRating, Street, LocalProductRating
 
 # Create your views here.
 def local_list(request):

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .models import Post, Coment, get_image_filepath
+from .models import Post, Coment
 from .forms import PostForm, ComentForm
 from users.models import Account
 from core.views import check_interactions
@@ -9,12 +9,6 @@ from core.views import check_interactions
 
 def post_coment(request):
     return render(request, 'posts/post_coment.html')
-
-
-# def posts_list(request):
-#     posts = Post.objects.all()
-#     context = {'posts':posts}
-#     return render(request, 'posts/forms/posts_list.html', context)
 
 def post_add(request):
     form = PostForm()
@@ -34,20 +28,6 @@ def post_add(request):
         return redirect('home')
     return render(request, 'posts/forms/post_add.html', context)
 
-# def post_edit(request, pk):
-#     post = Post.objects.get(id=pk)
-#     if request.method == "POST":
-#         title_req = request.POST.get('title')
-#         body_req = request.POST.get('body')
-#         if title_req != "":
-#             post.title = title_req
-#         if body_req != "":
-#             post = body_req
-#         post.save()
-#         return redirect("posts_list")
-#     context = {'post':post}
-#     return render(request, 'posts/forms/post_edit.html', context)
-
 def post_delete(request, pk, user_req):
     post = Post.objects.get(id=pk)
     user = Account.objects.get(username=user_req)
@@ -57,11 +37,6 @@ def post_delete(request, pk, user_req):
             return redirect('home')
     messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
     return redirect('home')
-
-# def coment_list(request):
-#     coments = Coment.objects.all()
-#     context = {'coments':coments}
-#     return render(request, 'posts/forms/coment_list.html', context)
 
 def coment_add(request, pk):
     form = ComentForm()

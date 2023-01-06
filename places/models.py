@@ -29,17 +29,6 @@ class Locals(models.Model):
     def __str__(self):
         return self.name
 
-
-class LocalStaff(models.Model):
-    person = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
-    local = models.ForeignKey(Locals, on_delete=models.CASCADE)
-    local_ovners = models.BooleanField(null=True, blank=True)
-    local_workers = models.BooleanField(null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.person}, {self.local}'
-
-
 def get_profile_product_image_filepath(self, filename):
     return f'places/static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/logo.png
 
