@@ -1,3 +1,6 @@
+#python
+import os
+
 #django
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -19,22 +22,34 @@ def local(request, pk):
     context = {'local':local, 'products':products, 'opinions':opinions}
     return render(request, 'places/local.html', context)
 
+def remove_img(path, img_name):
+    if os.path.exists(path + '/' + img_name) is False:
+        # file did not exists
+        return False
+    os.remove(path + '/' + img_name)
+    return True
+
 def local_form(request, pk):                                                   #local edit
     local = Locals.objects.get(id=pk)
-    form = LocalsForm()
+    streets = Street.objects.all()
     if request.method == "POST":
-        print(request.POST.get('name'), 'name')
         if request.POST.get('name') != "":
             local.name = request.POST.get('name')
-        else:
-            local.name = local.name
         if request.POST.get('description') != "":
             local.description = request.POST.get('description')
-        else:
-            local.description = local.description
-        local.save()
+        if request.POST.get('local_street') != "":
+            street_req = request.POST.get('local_street')
+            street = Street.objects.get(street_req)
+            local.local_street = street
+        if request.POST.get('local_addres') != "":
+            local.local_addres = request.POST.get('local_addres')
+        if request.FILES.get('logo') is not None:
+            local.logo.delete()
+            remove_img(f"C:/Users/jakub/Desktop/strona_miasta/places/static/locals/{local.id}", 'logo.png')
+            local.logo = request.FILES.get('logo')
+            local.save()
         return redirect('local_list')            
-    context = {'local':local, 'form':form}
+    context = {'local':local, 'streets':streets}
     return render(request, 'places/forms/local_form.html', context)
 
 def local_add(request):

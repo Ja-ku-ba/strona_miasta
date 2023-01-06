@@ -112,6 +112,9 @@
             <div class="list-group">
                 <a href="{% url 'product_add' local.id %}" class="list-group-item btn-outline-secondary">Dodaj produkt</a>
             </div>
+            <div class="list-group">
+                <a href="{% url 'local_form' local.id %}" class="list-group-item btn-outline-secondary">Edytuj dane</a>
+            </div>
         {% endif %}
         {% for product in products %}
             <div class="list-group">
@@ -119,7 +122,5 @@
             </div>
         {% endfor %}
     </div>
-
-
 </div>
 {% endblock %}

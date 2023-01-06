@@ -15,7 +15,7 @@ class Street(models.Model):
     def __str__(self):
         return self.name
 
-def get_profile_image_filepath(self, filename):
+def get_logo_image_filepath(self, filename):
     return f'places/static/locals/{self.pk}/logo.png'                           #route places/static/locals/local.id/logo.png
 
 class Locals(models.Model):
@@ -23,7 +23,7 @@ class Locals(models.Model):
     description = models.CharField(max_length=256)
     local_street = models.ForeignKey(Street, on_delete=models.SET_NULL, null=True, blank=True)
     local_addres = models.CharField(max_length=16)
-    logo = models.ImageField(max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True)
+    logo = models.ImageField(max_length=255, upload_to=get_logo_image_filepath, null=True, blank=True)
     owner = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):

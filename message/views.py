@@ -54,6 +54,7 @@ def ask(request, second_user_id):
                 user1_ask = request.user,
                 room = room_req
             )
+            messages.info(request, f'{user_second} otrzyma wiadomość z zapytanie o potwierdzenie usunięcia chatu')
         else:
             room_req.delete()
             RoomDeleteAsk.objects.get(room = room_req).delete()
