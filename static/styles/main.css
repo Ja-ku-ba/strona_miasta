@@ -253,6 +253,114 @@ a.chat-page-links:active, a.chat-page-links:hover {
 }
 /* end locals page */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+.container3 {
+    padding: auto;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap; /* Shorthand – you could use ‘flex-direction: column’ and ‘flex-wrap: wrap’ instead */
+}
+
+.item-3 {
+    height: fit-content;
+    padding: 5px;
+    width: 200px;
+    margin: auto;
+}
+
+#pin-image3 { 
+    width:  100%;
+    height: auto;
+}
+
+.locals-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+.container {
+    padding: auto;
+    border: 1px solid black;
+    max-width: 100% !important;
+    margin: auto;
+    max-height: 50rem;
+    display: flex;
+    flex-flow: column wrap; /* Shorthand – you could use ‘flex-direction: column’ and ‘flex-wrap: wrap’ instead */
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.item {
+    background-color: blue;
+    height: fit-content;
+    padding: 5px;
+    width: 200px;
+    margin: auto;
+}
+
+#pin-image { 
+    width:  100%;
+    height: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* local page */
 .add-opinion-input {
     display: flex;

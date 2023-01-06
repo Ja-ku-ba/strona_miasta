@@ -2,30 +2,103 @@
 {% block content %}
 <div class="page-container">
     <div id="feed-width">
-        <div id="page-container-locals">
-            {% for local in locals %}
-                <div class="card text-center m-2" id="local-card">
-                    <div class="card-header">
-                        {{local.name}}, {{local.local_addres}} {{local.local_street}}
+        <div class="locals-container">
+            <div class="container3">
+                {% for local in locals1 %}
+                    <div class="item-3">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{local.description}}</p>
+                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">{{local.description}}</p>
-                        {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="local-image" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                {% endfor %}
+            </div>
+            <div class="container3">
+                {% for local in locals2 %}
+                    <div class="item-3">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{local.description}}</p>
+                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                {% endfor %}
+            </div>
+            <div class="container3">
+                {% for local in locals3 %}
+                    <div class="item-3">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{local.description}}</p>
+                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="container3">
+                {% for local in locals4 %}
+                    <div class="item-3">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{local.description}}</p>
+                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="container3">
+                {% for local in locals5 %}
+                    <div class="item-3">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{local.description}}</p>
+                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-        
+    
     <div class="container-info"><div id="sticky">
         <div class="list-group">
             <a href="#" class="list-group-item btn-outline-secondary">Twoje miejsca</a>
-        </div>
-        <div class="list-group">
-            <a href="{% url 'local_add' %}" class="list-group-item btn-outline-secondary">Stwórz miejsce</a>
         </div>
         <div class="list-group">
             <a href="#"  class="list-group-item btn-outline-secondary">Chcę odwiedzić</a>
@@ -33,9 +106,9 @@
         <div class="list-group">
             <a href="#"  class="list-group-item btn-outline-secondary">Opinie</a>
         </div>
+        <div class="list-group">
+            <a href="{% url 'local_add' %}" class="list-group-item btn-outline-secondary">Stwórz miejsce</a>
+        </div>
     </div>
 </div>
 {% endblock %}
-
-
-

@@ -6,13 +6,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 #self made
-from .forms import LocalsForm, LocalProductsForm, LocalRatingForm
-from .models import Locals, LocalProducts, LocalRating, Street, LocalProductRating
+from .forms import LocalsForm, LocalProductsForm
+from .models import Locals, LocalProducts, LocalRating, Street, LocalProductRating, District
 
 # Create your views here.
 def local_list(request):
-    locals = Locals.objects.all()
-    context = {'locals':locals}
+    locals1 = Locals.objects.order_by("?")
+    locals2 = Locals.objects.order_by("?")
+    locals3 = Locals.objects.order_by("?")
+    locals4 = Locals.objects.order_by("?")
+    locals5 = Locals.objects.order_by("?")
+    context = {'locals1':locals1, 'locals2':locals2, 'locals3':locals3, 'locals4':locals4, 'locals5':locals5}
     return render(request, 'places/places_card.html', context)
 
 def local(request, pk):
@@ -175,3 +179,14 @@ def rating_delete(request, pk):
             rating.delete()
             messages.info(request, 'Opinia została pomyślnie usunięta.')
             return redirect('product', rating.product.id)
+
+
+def place_locals(request, name, pk):
+    dstcst = ["Środkowa", "Zewnętrzna", "Wewnętrzna", "Wyspa"]
+    if name in dstcst:
+        area = District.objects.get(id=pk)
+    else:
+        area = Street.objects.get(id=pk)
+        places = area.locals_set.all()
+    context = {'places':places}
+    return render(request, 'places/place_locals.html', context)
