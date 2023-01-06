@@ -251,23 +251,7 @@ a.chat-page-links:active, a.chat-page-links:hover {
     transform: translate(-50%, 0);
     width: 60%;
 }
-/* end locals page */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 .container3 {
     padding: auto;
     width: 80%;
@@ -293,72 +277,7 @@ a.chat-page-links:active, a.chat-page-links:hover {
     display: flex;
     justify-content: space-between;
 }
-
-
-
-
-
-
-
-.container {
-    padding: auto;
-    border: 1px solid black;
-    max-width: 100% !important;
-    margin: auto;
-    max-height: 50rem;
-    display: flex;
-    flex-flow: column wrap; /* Shorthand – you could use ‘flex-direction: column’ and ‘flex-wrap: wrap’ instead */
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.item {
-    background-color: blue;
-    height: fit-content;
-    padding: 5px;
-    width: 200px;
-    margin: auto;
-}
-
-#pin-image { 
-    width:  100%;
-    height: auto;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* end locals page */
 
 
 /* local page */
@@ -391,6 +310,12 @@ a.edit-product:hover, a.edit-product:visited, a.edit-product:active, a.edit-prod
 }
 /* end product page */
 
+/* opinion page */
+a.opinion-page-opinion:hover, a.opinion-page-opinion:visited, a.opinion-page-opinion:active, a.opinion-page-opinion:link {
+    color: black;
+    text-decoration: none;
+}
+/* end opinion page */
 
 /* search results */
 .search {

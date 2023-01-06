@@ -152,9 +152,9 @@ def product_delete(request, pk):
         return redirect('local', product.product_local.id)
 
 def rating_list(request):
-    ratings = LocalRating.objects.all()
-    context = {'ratings':ratings}
-    return render(request, 'places/forms/rating_list.html', context)
+    opinions = LocalRating.objects.filter(person=request.user)
+    context = {'opinions':opinions}
+    return render(request, 'places/opinions.html', context)
 
 def rating_add(request, pk):
     local_req = Locals.objects.get(id=pk)

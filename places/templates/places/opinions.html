@@ -1,6 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h1>jest ok</h1>
+<div id="feed-width">
+    <div id="coment-section">
+        <div class="list-group">
+            {% for opinion in opinions %}
+                    <div class="card">
+                        <div opinion="card-header">
+                            <a class="user-page-link" href="{% url 'user_page' opinion.person %}">@{{opinion.person}}</a>, {{opinion.added}}, 
+                            <a href="{% url 'local' opinion.local.id %}" class="opinion-page-opinion">                                                <!--turns entire card into link to product page, closing tag is before 'endfor'-->
+                            {% if request.user == opinion.person %}
+                            
+                                <!-- Button trigger modal -->
+                                <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal2">
+                                    Usuń opinię
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Usuń opinię</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Czy na pewno chcesz usunąć tą opinię?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="POST" action="{% url 'rating_delete' opinion.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-primary" name="coment">Tak</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{opinion.opinion}}</p>
+                        </blockquote>
+                        </div>
+                    </div>
+                    <br>
+                </a>
+            {% endfor %}
+        </div>                    
+    </div>
 </div>
 {% endblock %}

@@ -51,7 +51,7 @@ class LocalRating(models.Model):
     added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.local}, {self.rating}, {self.person}'
+        return f'{self.local}, {self.person}'
 
     class Meta:
         ordering = ['-added']
@@ -64,7 +64,7 @@ class LocalProductRating(models.Model):
     added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.local}, {self.rating}, {self.person}'
+        return f'{self.product}, {self.person}'
 
     class Meta:
         ordering = ['-added']
