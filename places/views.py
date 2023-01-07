@@ -183,10 +183,18 @@ def rating_delete(request, pk):
 
 def place_locals(request, name, pk):
     dstcst = ["Środkowa", "Zewnętrzna", "Wewnętrzna", "Wyspa"]
+    status = ''
     if name in dstcst:
         area = District.objects.get(id=pk)
+        places = area.street_set.order_by("?")
+        status = 'dis'
+        context = {'status':status, 'places':places}
     else:
         area = Street.objects.get(id=pk)
-        places = area.locals_set.all()
-    context = {'places':places}
+        places1 = area.locals_set.order_by("?")
+        places2 = area.locals_set.order_by("?")
+        places3 = area.locals_set.order_by("?")
+        places4 = area.locals_set.order_by("?")
+        places5 = area.locals_set.order_by("?")
+        context = {'places1':places1, 'places2':places2, 'places3':places3, 'places4':places4, 'places5':places5, 'status':status, 'area':area}
     return render(request, 'places/place_locals.html', context)

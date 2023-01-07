@@ -5,24 +5,24 @@
         <div class="locals-container">
             <div class="container3">
                 {% for local in locals1 %}
-                    <div class="item-3">
-                        <div class="card text-center">
-                            <div class="card-header">
-                                {{local.name}}, {{local.local_addres}} {{local.local_street}}
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">{{local.description}}</p>
-                                {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
-                            </div>
-                            <div class="card-footer text-muted">
-                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
+                    <a class="opinion-page-opinion" href="{% url 'local' local.id %}" role="button">
+                        <div class="item-3">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    {{local.name}}, {{local.local_addres}} {{local.local_street}}
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{local.description}}</p>
+                                    {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
             <div class="container3">
                 {% for local in locals2 %}
+                <a class="opinion-page-opinion" href="{% url 'local' local.id %}" role="button">
                     <div class="item-3">
                         <div class="card text-center">
                             <div class="card-header">
@@ -32,15 +32,14 @@
                                 <p class="card-text">{{local.description}}</p>
                                 {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
                             </div>
-                            <div class="card-footer text-muted">
-                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
-                            </div>
                         </div>
                     </div>
+                </a>
                 {% endfor %}
             </div>
             <div class="container3">
                 {% for local in locals3 %}
+                <a class="opinion-page-opinion" href="{% url 'local' local.id %}" role="button">
                     <div class="item-3">
                         <div class="card text-center">
                             <div class="card-header">
@@ -50,15 +49,14 @@
                                 <p class="card-text">{{local.description}}</p>
                                 {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
                             </div>
-                            <div class="card-footer text-muted">
-                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
-                            </div>
                         </div>
                     </div>
+                </a>
                 {% endfor %}
             </div>
             <div class="container3">
                 {% for local in locals4 %}
+                <a class="opinion-page-opinion" href="{% url 'local' local.id %}" role="button">
                     <div class="item-3">
                         <div class="card text-center">
                             <div class="card-header">
@@ -68,15 +66,14 @@
                                 <p class="card-text">{{local.description}}</p>
                                 {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
                             </div>
-                            <div class="card-footer text-muted">
-                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
-                            </div>
                         </div>
                     </div>
+                </a>
                 {% endfor %}
             </div>
             <div class="container3">
                 {% for local in locals5 %}
+                <a class="opinion-page-opinion" href="{% url 'local' local.id %}" role="button">
                     <div class="item-3">
                         <div class="card text-center">
                             <div class="card-header">
@@ -86,11 +83,9 @@
                                 <p class="card-text">{{local.description}}</p>
                                 {% load static %}<img src='{% static "locals/" %}{{ local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
                             </div>
-                            <div class="card-footer text-muted">
-                                <a class="btn btn-primary" href="{% url 'local' local.id %}" role="button">Zobacz więcej</a>
-                            </div>
                         </div>
                     </div>
+                </a>
                 {% endfor %}
             </div>
         </div>

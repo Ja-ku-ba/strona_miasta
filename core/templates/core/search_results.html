@@ -9,7 +9,7 @@
         <div class="list-group">
             <h5 href="#" class="list-group-item list-group-item-action text-center">Miejsca</h5>
             {% for district in districts %}
-                <a href="{% url 'place_locals' dictrict.name  district.id %}" class="list-group-item list-group-item-action">@{{district.name}}</a>
+                <a href="{% url 'place_locals' district.name  district.id %}" class="list-group-item list-group-item-action">@{{district.name}}</a>
             {% endfor %}
             {% for street in streets %}
                 <a href="{% url 'place_locals' street.name street.id %}" class="list-group-item list-group-item-action">@{{street.name}}</a>

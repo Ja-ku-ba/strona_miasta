@@ -277,6 +277,11 @@ a.chat-page-links:active, a.chat-page-links:hover {
     display: flex;
     justify-content: space-between;
 }
+
+.places {
+    display: flex;
+    flex-wrap: wrap;
+}
 /* end locals page */
 
 
