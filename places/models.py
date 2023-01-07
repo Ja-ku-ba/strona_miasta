@@ -68,3 +68,14 @@ class LocalProductRating(models.Model):
 
     class Meta:
         ordering = ['-added']
+
+
+class PlaceToVisit(models.Model):
+    local = models.ForeignKey(Locals, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    want_to_visit = models.BooleanField(default=False)
+
+class PlaceFavourite(models.Model):
+    local = models.ForeignKey(Locals, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user_like = models.BooleanField(default=False)

@@ -18,4 +18,5 @@ urlpatterns = [
     path('usun_opinie/<str:pk>', views.rating_delete, name='rating_delete'),
 
     path('miejsce/<str:name>/<str:pk>', views.place_locals, name='place_locals'),
+    path('moje_miejsca', views.user_visit_favourite, name='visit_fav'),
 ]

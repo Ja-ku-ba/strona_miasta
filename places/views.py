@@ -7,7 +7,7 @@ from django.contrib import messages
 
 #self made
 from .forms import LocalsForm, LocalProductsForm
-from .models import Locals, LocalProducts, LocalRating, Street, LocalProductRating, District
+from .models import Locals, LocalProducts, LocalRating, Street, LocalProductRating, District, PlaceFavourite, PlaceToVisit
 
 # Create your views here.
 def local_list(request):
@@ -198,3 +198,13 @@ def place_locals(request, name, pk):
         places5 = area.locals_set.order_by("?")
         context = {'places1':places1, 'places2':places2, 'places3':places3, 'places4':places4, 'places5':places5, 'status':status, 'area':area}
     return render(request, 'places/place_locals.html', context)
+
+
+def user_visit_favourite(request):
+    places = None
+    if request.POST == 'fav':
+        places = PlaceFavourite.objects.filter(user=request.user)
+    elif request.POST == 'vis':
+        places = PlaceToVisit.objects.filter(user=request.user)
+    context = {'places':places}
+    return render(request, 'places/visit_favourite.html', context)
