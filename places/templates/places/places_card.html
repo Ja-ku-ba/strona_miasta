@@ -93,21 +93,13 @@
     
     <div class="container-info"><div id="sticky">
         <div class="list-group">
-            <form>
-                {% csrf_token %}
-                <a href="{% url 'visit_fav' %}" class="list-group-item btn-outline-secondary">Ulubione miejsca</a>
-                <input type="hidden" name="fav">
-            </form>
+            <a href="{% url 'visit' %}" class="list-group-item btn-outline-secondary">Ulubione miejsca</a>
         </div>
         <div class="list-group">
-            <form>
-                {% csrf_token %}
-                <a href="{% url 'visit_fav' %}"  class="list-group-item btn-outline-secondary">Chcę odwiedzić</a>
-                <input type="hidden" name="vis">
-            </form>
+            <a href="{% url 'fav' %}" class="list-group-item btn-outline-secondary">Chcę odwiedzić</a>
         </div>
         <div class="list-group">
-            <a href="{% url 'rating_list' %}"  class="list-group-item btn-outline-secondary">Opinie</a>
+            <a href="{% url 'rating_list' %}" class="list-group-item btn-outline-secondary">Opinie</a>
         </div>
         <div class="list-group">
             <a href="{% url 'local_add' %}" class="list-group-item btn-outline-secondary">Stwórz miejsce</a>

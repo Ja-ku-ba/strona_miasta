@@ -18,6 +18,7 @@ urlpatterns = [
     path('usun_opinie/<str:pk>', views.rating_delete, name='rating_delete'),
 
     path('miejsce/<str:name>/<str:pk>', views.place_locals, name='place_locals'),
-    path('moje_miejsca', views.user_visit_favourite, name='visit_fav'),
+    path('ulubione', views.user_favourite, name='fav'),
+    path('chce_odwiedzic', views.user_visit, name='visit'),
     path('interakcja/<str:pk>', views.user_vis_fav_form, name='fav_vis_add'),
 ]

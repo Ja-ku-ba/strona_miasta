@@ -328,3 +328,14 @@ a.opinion-page-opinion:hover, a.opinion-page-opinion:visited, a.opinion-page-opi
     display: flex;
 }
 /* end search results */
+
+/* fav-vis locals page */
+.fav-vis-locals-page {
+    width: 80%;
+    margin: auto;
+}
+
+.fav-vis-item {
+    width: 60%;
+    margin: auto;
+}

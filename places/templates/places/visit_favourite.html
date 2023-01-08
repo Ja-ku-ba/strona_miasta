@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h1>
-        działa
-    </h1>
+<div class="fav-vis-locals-page">
+    {% for local in locals %}
+        <a class="opinion-page-opinion" href="{% url 'local' local.local.id %}" role="button">
+            <div class="fav-vis-item">
+                <div class="card text-center">
+                    <div class="card-header">
+                        {{local.local.name}}, {{local.local.local_addres}} {{local.local.local_street}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{plalocalces.local.description}}</p>
+                        {% load static %}<img src='{% static "locals/" %}{{ local.local.id }}/logo.png' id="pin-image3" class="img-fluid" alt="{{local.name}}" onerror="this.style.display = 'none'">
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
 </div>
 {% endblock %}

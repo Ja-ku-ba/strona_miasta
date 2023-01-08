@@ -74,8 +74,10 @@ class PlaceToVisit(models.Model):
     local = models.ForeignKey(Locals, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     want_to_visit = models.BooleanField(default=False)
+    added = models.DateTimeField(auto_now_add=True)
 
 class PlaceFavourite(models.Model):
     local = models.ForeignKey(Locals, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     user_like = models.BooleanField(default=False)
+    added = models.DateTimeField(auto_now_add=True)

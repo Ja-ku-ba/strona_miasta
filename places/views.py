@@ -208,13 +208,16 @@ def place_locals(request, name, pk):
     return render(request, 'places/place_locals.html', context)
 
 
-def user_visit_favourite(request):
-    places = None
-    if request.POST == 'fav':
-        places = PlaceFavourite.objects.filter(user=request.user)
-    elif request.POST == 'vis':
-        places = PlaceToVisit.objects.filter(user=request.user)
-    context = {'places':places}
+def user_visit(request):
+    places = Locals.objects.all()
+    locals = PlaceToVisit.objects.filter(user=request.user).order_by("?")
+    context = {'locals':locals, 'places':places}
+    return render(request, 'places/visit_favourite.html', context)
+
+def user_favourite(request):
+    places = Locals.objects.all()
+    locals = PlaceFavourite.objects.filter(user=request.user)
+    context = {'locals':locals ,'places':places}
     return render(request, 'places/visit_favourite.html', context)
 
 def user_vis_fav_form(request, pk):
