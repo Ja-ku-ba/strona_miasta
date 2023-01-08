@@ -339,3 +339,24 @@ a.opinion-page-opinion:hover, a.opinion-page-opinion:visited, a.opinion-page-opi
     width: 60%;
     margin: auto;
 }
+/* end fav-vis locals page */
+
+/* manage user data */
+.user-data-manage-container {
+    width: 60%;
+    margin: auto;
+    height: 100vh;
+}
+
+.delete-account-link-position {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-60%);
+    cursor: pointer;
+}
+
+.confirm-button-pos {
+    display: flex;
+    justify-content: center;
+}

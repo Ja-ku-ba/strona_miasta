@@ -5,7 +5,7 @@ from django.contrib import messages
 
 
 #self made
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, ChangeUserData
 from .models import Account
 
 
@@ -61,3 +61,34 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+
+def user_account_manage(request):
+    if request.method == "POST":
+        user_model = Account.objects.get(id=request.user.id)
+        print(request.POST.get("end_of_travel"), '----------------------------------------------------------------------')
+        if request.POST.get("end_of_travel"):
+            user_model.delete()
+            messages.success(request, "Dziękujemy za używanie naszego portalu, twoje konto zostało pomyślnie usunię.")
+            return redirect('home')
+        else:
+            username = request.POST.get("username")
+            if username != "":
+                user_model.username = username
+
+            email = request.POST.get("new_email")
+            if email != "":
+                user_model.email = email
+                
+            show_email = request.POST.get("show_email")
+            if show_email == "on":
+                user_model.hide_email = False
+            user_model.save()
+    form = ChangeUserData(request.POST, instance=Account)
+    context = {'form': form}
+    return render(request, 'core/user_account_manage.html', context)
+
+
+
+
+

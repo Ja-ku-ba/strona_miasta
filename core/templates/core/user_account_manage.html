@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="user-data-manage-container">
+	<div>
+		<form method="POST" >
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="exampleInputEmail1">Nazwa użytkownika: </label>
+				<input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{request.user.username}}">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail1">Adres email: </label>
+				<input type="email" name="new_email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{request.user.email}}">
+			</div>
+			<div class="form-check">
+				<input type="checkbox" name="show_email" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Nie ukrywaj mojego emailu</label>
+				<small id="emailHelp" class="form-text text-muted">Twój email bedzie widoczny w kategori ,,Informacje o użytkowniku"</small>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Zmień hasło: </label>
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nie używaj słabych haseł typu: haslo, 123456, nazwa użytkownika">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Potwierdź zmienione hasło: </label>
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nie używaj słabych haseł typu: haslo, 123456, nazwa użytkownika">
+			</div>
+			<div class="confirm-button-pos">
+				<button type="submit" class="btn btn-primary">Potwierdź zmaiany</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<!-- Button trigger modal -->
+		<div class="delete-account-link-position">
+			<a data-toggle="modal" data-target="#exampleModal">
+				Usuń konto
+			</a>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Potwierdzenei usunięcia konta</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				Raz usuniętego konta nie bedzie można odzyskać, wszystkie powiązane dane take jak aktywność przestaną być powiązane z twoim kontem. 
+				Aktywnośći po usunięciu konta nie będzie można odzyskać.
+				Czy na pewno chcesz kontynuować?
+				</div>
+				<div class="modal-footer">
+					<form method="POST">
+						{% csrf_token %}
+						<button type="submit" name="end_of_travel" value="end" class="btn btn-primary">Tak, usuń moje konto</button>
+					</form>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
