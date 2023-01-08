@@ -23,7 +23,15 @@ def local(request, pk):
     local = Locals.objects.get(id=pk)
     products = LocalProducts.objects.filter(product_local=local).order_by('name')
     opinions = LocalRating.objects.filter(local=local)
-    context = {'local':local, 'products':products, 'opinions':opinions}
+    try:
+        fav_status = PlaceFavourite.objects.get(local=local, user=request.user)
+    except:
+        fav_status = ''
+    try:
+        vis_status = PlaceToVisit.objects.get(local=local, user=request.user)
+    except:
+        vis_status = ""
+    context = {'local':local, 'products':products, 'opinions':opinions, 'fav_status':fav_status, 'vis_status':vis_status}
     return render(request, 'places/local.html', context)
 
 def remove_img(path, img_name):
@@ -208,3 +216,37 @@ def user_visit_favourite(request):
         places = PlaceToVisit.objects.filter(user=request.user)
     context = {'places':places}
     return render(request, 'places/visit_favourite.html', context)
+
+def user_vis_fav_form(request, pk):
+    local = Locals.objects.get(id=pk)
+    if request.method == 'POST':
+        fav = request.POST.get('fav')
+        vis = request.POST.get('vis')
+        try:
+            fav_status = PlaceFavourite.objects.get(local=local, user=request.user)
+        except:
+            fav_status = None
+        try:
+            vis_status = PlaceToVisit.objects.get(local=local, user=request.user)
+        except:
+            vis_status = None
+            
+        if fav == 'on':
+            PlaceFavourite.objects.create(
+                local = local,
+                user = request.user,
+                user_like = True
+            )
+        if fav == 'fav-off':
+            fav_status.delete()
+
+        if vis == 'on':
+            PlaceToVisit.objects.create(
+                local = local,
+                user = request.user,
+                want_to_visit = True
+            )
+        if  vis == "vis-off":
+            vis_status.delete()
+            
+        return redirect("local", local.id)

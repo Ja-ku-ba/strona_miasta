@@ -7,35 +7,15 @@
                 <div class="card-header">
                     {{local.name}}, {{local.local_addres}} {{local.local_street}}
                     {% if request.user == local.owner %}
-                        <!-- Button trigger modal -->
+                        <!-- Button trigger modal delete local -->
                         <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal">
                             Usuń lokal
                         </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Usuń lokal</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    Czy na pewno chcesz usunąć ten lokal?
-                                    Tej akcji nie bdzie można cofnąć.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form method="POST" action="{% url 'local_delete' local.id %}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-primary" name="post">Tak</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     {% endif %}
+                    <!-- Button trigger modal fav, vis  -->
+                    <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#fav-vis">
+                        Interakcje
+                    </button>
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{local.description}}</p>
@@ -60,13 +40,11 @@
                                 <div opinion="card-header">
                                     <a class="user-page-link" href="{% url 'user_page' opinion.person %}">@{{opinion.person}}</a>, {{opinion.added}}
                                     {% if request.user == opinion.person %}
-                                    
-                                        <!-- Button trigger modal -->
+                                        <!-- Button trigger modal delete opinion -->
                                         <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal2">
                                             Usuń opinię
                                         </button>
-                                        
-                                        <!-- Modal -->
+                                        <!-- Modal delete opinion -->
                                         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -89,6 +67,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
@@ -121,6 +100,80 @@
                 <a href="{% url 'product' product.id %}" class="list-group-item btn-outline-secondary">{{product.name}}</a>
             </div>
         {% endfor %}
+    </div>
+</div>
+
+
+<!-- Modal fav, vis -->
+<div class="modal fade" id="fav-vis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Co sądzisz o {{local.name}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-footer">
+                <form method="POST" class='fav-vis-form' action="{% url 'fav_vis_add' local.id %}">
+                    {% csrf_token %}
+                    <div class="form-check"> 
+                        {% if fav_status == "" %}
+                            <input class="form-check-input" type="checkbox" name="fav" id="flexRadioDefault1">
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" id="flexRadioDefault1" checked>
+                            <input type="hidden" name="fav" value="fav-off">
+                        {% endif %}
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Dodaj do ulubionych
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        {% if vis_status == "" %}
+                            <input class="form-check-input" type="checkbox" name="vis" id="flexRadioDefault1">
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="vis" id="flexRadioDefault1" checked>
+                            <input type="hidden" name="vis" value="vis-off">
+                        {% endif %}
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Chcę odwiedzić
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="fav-vis-buttons">
+                        <button type="submit" class="btn btn-primary" name="coment">Potwierdź</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal delte local -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Usuń lokal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Czy na pewno chcesz usunąć ten lokal?
+            Tej akcji nie bdzie można cofnąć.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="{% url 'local_delete' local.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" name="post">Tak</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

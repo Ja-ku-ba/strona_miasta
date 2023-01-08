@@ -19,4 +19,5 @@ urlpatterns = [
 
     path('miejsce/<str:name>/<str:pk>', views.place_locals, name='place_locals'),
     path('moje_miejsca', views.user_visit_favourite, name='visit_fav'),
+    path('interakcja/<str:pk>', views.user_vis_fav_form, name='fav_vis_add'),
 ]

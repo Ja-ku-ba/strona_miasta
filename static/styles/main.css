@@ -244,13 +244,6 @@ a.chat-page-links:active, a.chat-page-links:hover {
     height: auto;
 }
 
-#local-info {
-    position: absolute;
-    left: 50%;
-    top: 63px;
-    transform: translate(-50%, 0);
-    width: 60%;
-}
 
 .container3 {
     padding: auto;
@@ -298,6 +291,14 @@ a.chat-page-links:active, a.chat-page-links:hover {
 
 .opinion-body {
     width: 80%;
+}
+
+.fav-vis-form {
+    width: 100%;
+}
+
+.fav-vis-buttons {
+    float: right;
 }
 /* end local page */
 
