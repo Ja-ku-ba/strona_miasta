@@ -24,13 +24,13 @@ class Locals(models.Model):
     local_street = models.ForeignKey(Street, on_delete=models.SET_NULL, null=True, blank=True)
     local_addres = models.CharField(max_length=16)
     logo = models.ImageField(max_length=255, upload_to=get_logo_image_filepath, null=True, blank=True)
-    owner = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 def get_profile_product_image_filepath(self, filename):
-    return f'places/static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/logo.png
+    return f'places/static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/product.id.png
 
 class LocalProducts(models.Model):
     name = models.CharField(max_length=128)

@@ -1,3 +1,5 @@
+import os, shutil
+
 #django
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -9,7 +11,8 @@ from django.contrib import messages
 #self made
 from .forms import UserRegistrationForm, UserLoginForm, ChangeUserData
 from .models import Account
-
+from places.models import Locals, LocalProducts
+from posts.models import Post
 
 # Create your views here.
 
@@ -64,12 +67,35 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+def remove_img(path, img_name):
+    if os.path.exists(path + '/' + img_name) is False:
+        # file did not exists
+        return False
+    os.remove(path + '/' + img_name)
+    return True
 
 def user_account_manage(request):
     if request.method == "POST":
         user_model = Account.objects.get(id=request.user.id)
         print(request.POST.get("end_of_travel"), '----------------------------------------------------------------------')
         if request.POST.get("end_of_travel"):
+            user_profile_image_path = f'users/static/users/user_profile_pictures/{request.user.id}/'                             #delete proflie picture
+            if os.path.exists(user_profile_image_path) is True:
+                shutil.rmtree(user_profile_image_path)          
+            try:
+                local = Locals.objects.get(owner=request.user.id)                                                                #delete local images, where user was an owner
+                path = f"C:/Users/jakub/Desktop/strona_miasta/places/static/locals/{local.id}"
+                if os.path.exists(path) is True:
+                    shutil.rmtree(path)   
+            except:
+                pass
+
+            try:
+                user_posts_static_folder = f"C:/Users/jakub/Desktop/strona_miasta/posts/static/posts/{request.user.id}"
+                if os.path.exists(user_posts_static_folder) is True:
+                    shutil.rmtree(user_posts_static_folder)   
+            except:
+                pass
             user_model.delete()
             messages.success(request, "Dziękujemy za używanie naszego portalu, twoje konto zostało pomyślnie usunię.")
             return redirect('home')
