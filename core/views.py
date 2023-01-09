@@ -130,22 +130,6 @@ def user_page(request, name):
 
     return render(request, 'core/user_page.html', context)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def check_interactions(user, post_id, status):
     if status in ['ca', 'la', 'da']:                                                                 #If user wants to add interaction, but there alredy exist then adds nothing
         try:

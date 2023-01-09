@@ -1,6 +1,8 @@
 #django
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 
 
@@ -86,9 +88,17 @@ def user_account_manage(request):
             user_model.save()
     form = ChangeUserData(request.POST, instance=Account)
     context = {'form': form}
-    return render(request, 'core/user_account_manage.html', context)
+    return render(request, 'users/user_account_manage.html', context)
 
-
-
-
+def password_cahnge(request):
+    form = PasswordChangeForm(user = request.user, data = request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # <-- keep the user loged after password change
+            messages.success(request, 'Twoje hasło zostało zmienione pomyślnie.')
+            return redirect('user_account_manage')
+        else:
+            messages.info(request, "Coś poszło nie tak, sprawdź poprawność wpisywanych haseł. Nie używaj haseł, które można łatwo odgadnąć")
+    return render(request, "users/change_password.html")
 

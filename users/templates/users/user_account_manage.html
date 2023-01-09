@@ -12,18 +12,15 @@
 				<label for="exampleInputEmail1">Adres email: </label>
 				<input type="email" name="new_email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{request.user.email}}">
 			</div>
+			<hr>
 			<div class="form-check">
 				<input type="checkbox" name="show_email" class="form-check-input" id="exampleCheck1">
 				<label class="form-check-label" for="exampleCheck1">Nie ukrywaj mojego emailu</label>
 				<small id="emailHelp" class="form-text text-muted">Twój email bedzie widoczny w kategori ,,Informacje o użytkowniku"</small>
 			</div>
+			<hr>
 			<div class="form-group">
-				<label for="exampleInputPassword1">Zmień hasło: </label>
-				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nie używaj słabych haseł typu: haslo, 123456, nazwa użytkownika">
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">Potwierdź zmienione hasło: </label>
-				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nie używaj słabych haseł typu: haslo, 123456, nazwa użytkownika">
+				<a href="{% url 'change_password' %}"><button type="button" class="btn btn-outline-dark">Zmień hasło</button></a>
 			</div>
 			<div class="confirm-button-pos">
 				<button type="submit" class="btn btn-primary">Potwierdź zmaiany</button>
@@ -44,7 +41,7 @@
 			<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Potwierdzenei usunięcia konta</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Potwierdzenie usunięcia konta</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
