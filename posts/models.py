@@ -22,6 +22,11 @@ class Post(models.Model):
     class Meta:
         ordering = ['-added']
 
+        
+    @property
+    def owner_post(self):
+        return Account.objects.get(id=self.owner.id).username
+
 
 class Coment(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
