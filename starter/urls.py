@@ -23,4 +23,5 @@ urlpatterns = [
     path('miejsca/', include('places.urls')),
     path('posty/', include('posts.urls')),
     path('wiadomosci/', include('message.urls')),
+    path('api/', include('api.urls')),
 ]

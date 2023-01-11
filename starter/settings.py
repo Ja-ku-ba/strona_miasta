@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'users',
     'places',
     'posts',
-    'message'
+    'message',
+    'api',
 ]
 
 MIDDLEWARE = [
