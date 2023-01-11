@@ -29,6 +29,10 @@ class Locals(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def street(self):
+        return self.local_street.name
+
 def get_profile_product_image_filepath(self, filename):
     return f'places/static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/product.id.png
 
