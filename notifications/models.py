@@ -9,11 +9,12 @@ from places.models import LocalRating, LocalProductRating
 
 
 class UserNotifications(models.Model):
-    user = models.ManyToManyField(Account)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     posts = models.ManyToManyField(Post)
     messages = models.ManyToManyField(MessagesRoom)
     messages_room_ask = models.ManyToManyField(RoomDeleteAsk)
 
-
+    def __str__(self) -> str:
+        return f"{self.user.username}"
 
 
