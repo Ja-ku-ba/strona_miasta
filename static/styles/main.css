@@ -60,8 +60,12 @@
 }
 
 .panels-size {
-    width: fit-content;
+    width: 30%;
     height: auto;
+}
+
+.register-label {
+    width: 100%;
 }
 /* end login and register panels */
 

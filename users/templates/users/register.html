@@ -5,32 +5,29 @@
         <div class="card text-center">
             <div class="card-body">
                 <h5 class="card-title">Zarejestruj</h5>
+                <hr>
                 <form method="post" action="">
                     {% csrf_token %}
                     <div class="form-group row">
-                        <label for="staticEmail" class="col-form-label">Email:</label>
-                        <div class="col-sm-200">
-                            <input type="email" class="form-control" id="staticEmail" name="email">
-                        </div>
+                        <label for="staticEmail" class="col-form-label register-label">Email:</label>
+                        <input type="email" class="form-control" id="staticEmail" name="email">
                     </div>
+                    <hr>
                     <div class="form-group row">
-                        <label for="username" class="col-form-label">Nazwa użtkownika:</label>
-                        <div class="col-sm-200">
-                            <input type="text" class="form-control" id="username" name="username">
-                        </div>
+                        <label for="username" class="col-form-label register-label">Nazwa użtkownika:</label>
+                        <input type="text" class="form-control" id="username" name="username">
                     </div>
+                    <hr>
                     <div class="form-group row">
-                        <label for="password1" class="col-form-label">Hasło:</label>
-                        <div class="ccol-sm-200">
-                            <input type="password" class="form-control" id="password1" name="password1">
-                        </div>
+                        <label for="password1" class="col-form-label register-label">Hasło:</label>
+                        <input type="password" class="form-control" id="password1" name="password1">
                     </div>
+                    <hr>
                     <div class="form-group row">
-                        <label for="password2" class="col-form-label">Potwierdź hasło:</label>
-                        <div class="col-sm-200">
-                            <input type="password" class="form-control" id="password2" name="password2">
-                        </div>
+                        <label for="password2" class="col-form-label register-label">Potwierdź hasło:</label>
+                        <input type="password" class="form-control" id="password2" name="password2">
                     </div>
+                    <hr>
                     <input type="submit" class="btn btn-primary" value="Zarejestruj">
                 </form>
             </div>
