@@ -8,12 +8,30 @@
 		<form class="form-inline" id="searchbar-center" action="{% url 'search' %}" method="GET">
 			<input class="form-control" id="wider-searchbar" placeholder="Szukaj" type="search" name="q">
 			<button type="submit" class="btn btn-dark" id="search-button">
-			<i class="material-symbols-outlined">search</i>
+				<i class="material-symbols-outlined">search</i>
 			</button>
 		</form>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				{% include "notifications/notifications_module.html" %}
+				<div class="dropdown">
+					<form action="{% url 'notifiactions' %}">
+						{% csrf_token %}
+						<input class="dropdown-toggle" type="submit" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Powiadomienia">
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<div class="card" style="width: 18rem;">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">
+										{% for notification in notifications %}
+											{{notification.added}}
+										{% endfor %}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+					
+					
+				</div>
 			</li>
 			<li class="nav-item">
 				<a href="{% url 'chat_list' %}" class="nav-link">Wiadmości</a>

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
 
-
+from .models import UserNotifications
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
 from places.models import Locals, Street, District
 # Create your views here.
@@ -180,3 +180,12 @@ def user_interactions(request, username):
     return render(request, 'core/user_post_interactions.html', context)
 
 
+def notifiactions(request):
+    if request.method == "POST":
+        print("--------------------------------------------------------------------------------------------------")   
+    print("------------------------------------------------")   
+    # notifiactions = UserNotifications.objects.filter(user=request.user)
+    notifiactions = ['arara','hrygtrfse', 'htegrf','65y7u','hygtefw']
+    context = {"notifiactions":notifiactions}      
+    print(context)   
+    return redirect("home")

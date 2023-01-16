@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('uzytkownik/<str:name>', views.user_page, name='user_page'),
     path('uzytkownik/<str:username>/interakcje', views.user_interactions, name='user_interactions'),
+
+    path('notifications/', views.notifiactions, name="notifiactions")
 ]
