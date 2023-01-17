@@ -181,11 +181,6 @@ def user_interactions(request, username):
 
 
 def notifiactions(request):
-    if request.method == "POST":
-        print("--------------------------------------------------------------------------------------------------")   
-    print("------------------------------------------------")   
-    # notifiactions = UserNotifications.objects.filter(user=request.user)
-    notifiactions = ['arara','hrygtrfse', 'htegrf','65y7u','hygtefw']
-    context = {"notifiactions":notifiactions}      
-    print(context)   
-    return redirect("home")
+    notifiactions = UserNotifications.objects.filter(user=request.user)
+    context = {"notifiactions":notifiactions}
+    return render(request, 'core/notifications.html', context)

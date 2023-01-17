@@ -13,8 +13,5 @@ class UserNotifications(models.Model):
     posts = models.ManyToManyField(Post)
     messages = models.ManyToManyField(MessagesRoom)
     messages_room_ask = models.ManyToManyField(RoomDeleteAsk)
-
     def __str__(self) -> str:
         return f"{self.user.username}"
-
-
