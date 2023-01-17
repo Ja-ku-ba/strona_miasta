@@ -145,7 +145,7 @@ import random
 r = RandomWords()
 smapl_len = len(sample)
 # Return a single random word
-for number in range(999):
+for number in range(250):
     word = r.get_random_word()
     des = ''
     start_desc = random.randrange(smapl_len)

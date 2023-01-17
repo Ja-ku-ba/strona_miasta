@@ -29,7 +29,8 @@ class Post(models.Model):
 
 
 class Coment(models.Model):
-    owner = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post_owner = models.ForeignKey(Account, related_name="post_owner_coment", on_delete=models.CASCADE)                                          #required due to notifications, this one line erases entire notifications app and models
+    owner = models.ForeignKey(Account, related_name="owner_coment", on_delete=models.CASCADE)
     comented_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.CharField(max_length=256)
     added = models.DateTimeField(auto_now_add=True)
@@ -43,7 +44,8 @@ class Coment(models.Model):
         ordering = ['-added']
 
 class Like(models.Model):
-    person = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post_owner = models.ForeignKey(Account, related_name="post_owner_like", on_delete=models.CASCADE)                                          #required due to notifications, this one line erases entire notifications app and models
+    person = models.ForeignKey(Account, related_name="person_like", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now_add=True)
 
@@ -55,7 +57,8 @@ class Like(models.Model):
 
 
 class Dislike(models.Model):
-    person = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post_owner = models.ForeignKey(Account, related_name="post_owner_dislike", on_delete=models.CASCADE)                                          #required due to notifications, this one line erases entire notifications app and models
+    person = models.ForeignKey(Account, related_name="person_dislike", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now_add=True)
     

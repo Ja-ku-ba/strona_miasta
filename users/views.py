@@ -13,7 +13,6 @@ from .forms import UserRegistrationForm, UserLoginForm, ChangeUserData
 from .models import Account
 from places.models import Locals, LocalProducts
 from posts.models import Post
-
 # Create your views here.
 
 def register(request):                                                                

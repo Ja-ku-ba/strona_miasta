@@ -78,7 +78,7 @@ def add_street(request):
 @api_view(["POST"])
 def add_local(request):
     street = Street.objects.all().order_by("?").first()
-    request.data["local_street"] = street.id
+    request.data["local_street"] = street
     random_user = Account.objects.all().order_by("?").first()
     request.data["owner"] = random_user.id
     serializer = LocalSerializer(data=request.data)

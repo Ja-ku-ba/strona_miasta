@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
 
-from .models import UserNotifications
+
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
 from places.models import Locals, Street, District
 # Create your views here.
@@ -120,6 +120,12 @@ def dislike_func(request, pk):
             post_req.reactions -= 1
             post_req.save()
             check_interactions(request.user, post_req, 'da')
+
+            # # creating code that create noticication for post owner
+            # notifiaction = UserNotifications.objects.filter(user=post_req.owner)
+            # if notifiaction.post_dislike 
+            # if notifiaction.exists() is False:
+            #     notifiaction.post_likes.add(request.user.id)      
             return redirect('post', pk)
 
 
@@ -181,6 +187,9 @@ def user_interactions(request, username):
 
 
 def notifiactions(request):
-    notifiactions = UserNotifications.objects.filter(user=request.user)
-    context = {"notifiactions":notifiactions}
-    return render(request, 'core/notifications.html', context)
+    # likes
+    # dislikes
+    # coments
+    # messages
+    # asks
+    return render(request, 'core/notifications.html')

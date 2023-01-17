@@ -4,10 +4,10 @@
     {% for notifiaction in notifiactions %}
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-            {{notifiaction}}
+            {{notifiaction.added}}
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{notifiaction.added}}</li>
+                <li class="list-group-item">{{notifiaction}}</li>
             </ul>
         </div>
       {% endfor %}
