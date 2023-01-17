@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from posts.models import Post
-from places.models import Locals, LocalProducts
+from places.models import Locals, LocalProducts, Street, District
 from users.models import Account
 
 class PostSerializer(serializers.ModelSerializer):
@@ -22,7 +22,8 @@ class LocalSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "street",
-            "local_addres"
+            "local_addres",
+            "owner"
         ]
 
 class LocalProductSerializer(serializers.ModelSerializer):
@@ -34,4 +35,52 @@ class LocalProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "product_local",
+        ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# serializer to populata db faster
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = ['name']
+
+class StreetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Street
+        fields = [
+            'name',
+            'street_district'
         ]
