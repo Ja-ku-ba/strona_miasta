@@ -86,7 +86,8 @@ def like_func(request, pk):
         else:
             Like.objects.create(
                 person = Account.objects.get(id=request.user.id),
-                post = post_req
+                post = post_req,
+                post_owner = Account.objects.get(id=post_req.owner.id)
             )
             post_req.reactions += 1
             post_req.save()
@@ -115,7 +116,8 @@ def dislike_func(request, pk):
         else:
             Dislike.objects.create(
                 person = Account.objects.get(id=request.user.id),
-                post = post_req
+                post = post_req,
+                post_owner = Account.objects.get(id=post_req.owner.id)
             )
             post_req.reactions -= 1
             post_req.save()
@@ -185,11 +187,13 @@ def user_interactions(request, username):
     context = {'user_req':user_req, 'posts_interacted':posts_interacted}
     return render(request, 'core/user_post_interactions.html', context)
 
-
+from itertools import chain
 def notifiactions(request):
-    # likes
-    # dislikes
-    # coments
+    likes = Like.objects.filter(post_owner = request.user)
+    dislikes = Dislike.objects.filter(post_owner = request.user)
+    coments = Coment.objects.filter(post_owner=request.user)
     # messages
     # asks
-    return render(request, 'core/notifications.html')
+    notifiactions = chain(likes, dislikes, coments)
+    context = {'notifiactions':notifiactions}
+    return render(request, 'core/notifications.html', context)

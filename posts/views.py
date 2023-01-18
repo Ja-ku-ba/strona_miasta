@@ -7,8 +7,8 @@ from users.models import Account
 from core.views import check_interactions
 # Create your views here.
 
-def post_coment(request):
-    return render(request, 'posts/post_coment.html')
+# def post_coment(request):
+#     return render(request, 'posts/post_coment.html')
 
 def post_add(request):
     form = PostForm()
@@ -47,7 +47,8 @@ def coment_add(request, pk):
             Coment.objects.create(
                 owner = request.user,
                 comented_post = comented_post_request,
-                body = request.POST.get('body')
+                body = request.POST.get('body'),
+                post_owner = Account.objects.get(id=comented_post_request.owner.id)
             )
             check_interactions(request.user, comented_post_request, 'ca')
             return redirect('post', pk)
