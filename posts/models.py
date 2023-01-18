@@ -30,21 +30,23 @@ class Post(models.Model):
 
 class Coment(models.Model):
     post_owner = models.ForeignKey(Account, related_name="post_owner_coment", on_delete=models.CASCADE)                         #required due to notifications, this one line erases entire notifications app and models
-    owner = models.ForeignKey(Account, related_name="owner_coment", on_delete=models.CASCADE)
-    comented_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    type = models.CharField(max_length=1 ,default='c')
+    person = models.ForeignKey(Account, related_name="owner_coment", on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.CharField(max_length=256)
     added = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.owner}, {self.comented_post}'
+        return f'{self.person}, {self.post}'
 
     class Meta:
         ordering = ['-added']
 
 class Like(models.Model):
     post_owner = models.ForeignKey(Account, related_name="post_owner_like", on_delete=models.CASCADE)               #required due to notifications, this one line erases entire notifications app and models
+    type = models.CharField(max_length=1 ,default='l')
     person = models.ForeignKey(Account, related_name="person_like", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now_add=True)
@@ -58,6 +60,7 @@ class Like(models.Model):
 
 class Dislike(models.Model):
     post_owner = models.ForeignKey(Account, related_name="post_owner_dislike", on_delete=models.CASCADE)                    #required due to notifications, this one line erases entire notifications app and models
+    type = models.CharField(max_length=1 ,default='d')
     person = models.ForeignKey(Account, related_name="person_dislike", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now_add=True)

@@ -45,8 +45,8 @@ def coment_add(request, pk):
         form = ComentForm(request.POST)
         if form.is_valid():
             Coment.objects.create(
-                owner = request.user,
-                comented_post = comented_post_request,
+                person = request.user,
+                post = comented_post_request,
                 body = request.POST.get('body'),
                 post_owner = Account.objects.get(id=comented_post_request.owner.id)
             )

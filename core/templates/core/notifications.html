@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
+<div id="feed-width">
     {% for notifiaction in notifiactions %}
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-header">
+            <a href="#" >@{{notifiaction.person}}</a>, 
+            <a href="{% url 'post' notifiaction.post.id %}">
+            {% if notifiaction.type == "c" %} dodano komentarz:
+            {% elif notifiaction.type == "l" %} polubiono
+            {% else %} znielubiono
+            {% endif %}
             {{notifiaction.added}}
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{notifiaction}}</li>
-            </ul>
+            <li class="list-group-item">{{notifiaction}}</li>
         </div>
+        </a>
+        <div style="height: 5px;"></div>
       {% endfor %}
 </div>
 {% endblock content %}

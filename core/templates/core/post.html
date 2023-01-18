@@ -93,8 +93,8 @@
                 {% for coment in coments %}
                         <div class="card">
                             <div class="card-header">
-                                <a class="user-page-link" href="{% url 'user_page' coment.owner %}">@{{coment.owner}}</a>, {{coment.added}}
-                            {% if request.user == coment.owner %}
+                                <a class="user-page-link" href="{% url 'user_page' coment.person %}">@{{coment.person}}</a>, {{coment.added}}
+                            {% if request.user == coment.person %}
                              
                                 <!-- Button trigger modal -->
                                 <button type="button" class="badge badge-dark" data-toggle="modal" data-target="#exampleModal2">

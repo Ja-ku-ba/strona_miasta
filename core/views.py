@@ -60,7 +60,7 @@ def post(request, pk):
     except:
         user_dislikes = None
 
-    coments = Coment.objects.filter(comented_post=pk)
+    coments = Coment.objects.filter(post=pk)
     context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes, 'coments':coments}
     return render(request, 'core/post.html', context)
 
