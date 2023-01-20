@@ -15,7 +15,11 @@
             <div class="list-group text-left">
                 <div class="card">
                     <div class="card-header">
-                        <a class="user-page-link" href="{% url 'user_page' message.person %}">@{{message.person}}</a>, {{message.added}}
+                        {% if message.person is not None %}
+                            <a class="user-page-link" href="{% url 'user_page' message.person %}">@{{message.person}}</a>, {{message.added}}
+                        {% else %}
+                            <a class="user-page-link">Konto usunięte</a>, {{message.added}}
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{message}}</p>

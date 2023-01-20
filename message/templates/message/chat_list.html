@@ -5,11 +5,21 @@
         <div class="card text-center btn btn-outline-secondary card-header" id="feed-card">
             <div>
                 {% if request.user == data.owner1 %}
-                    <a class="chat-page-links" href="{% url 'create_room' data.owner2.id %}" role="button">{{data.owner2}} : {{data.owner1}}</a> | 
-                    <a class="chat-page-links" href="{% url 'delete_chat' data.owner2.id %}">Usuń chat</a>
+                    {% if data.owner2 is not None %}
+                        <a class="chat-page-links" href="{% url 'chat' data.id %}" role="button">{{data.owner2}} : {{data.owner1}}</a> | 
+                        <a class="chat-page-links" href="{% url 'delete_chat' data.id %}">Usuń chat</a>
+                    {% else %}
+                        <a class="chat-page-links" href="{% url 'chat' data.id %}" role="button">{{data.owner2}} : Konto usunięte</a> | 
+                        <a class="chat-page-links" href="{% url 'delete_chat' data.id %}">Usuń chat</a>
+                    {% endif %}
                 {% else %}
-                    <a class="chat-page-links"  href="{% url 'create_room' data.owner1.id %}" role="button">{{data.owner1}} : {{data.owner2}}</a> | 
-                    <a class="chat-page-links" href="{% url 'delete_chat' data.owner1.id %}">Usuń chat</a>
+                    {% if data.owner1 is not None%}
+                        <a class="chat-page-links"  href="{% url 'chat' data.id %}" role="button">{{data.owner1}} : {{data.owner2}}</a> | 
+                        <a class="chat-page-links" href="{% url 'delete_chat' data.id %}">Usuń chat</a>
+                    {% else %}
+                        <a class="chat-page-links"  href="{% url 'chat' data.id %}" role="button">Konto usunięte : {{data.owner2}}</a> | 
+                        <a class="chat-page-links" href="{% url 'chat' data.id %}">Usuń chat</a>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
