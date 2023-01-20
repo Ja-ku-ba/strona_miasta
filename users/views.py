@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 #self made
 from .forms import UserRegistrationForm, UserLoginForm, ChangeUserData
@@ -62,6 +62,7 @@ def login_user(request):
 
     return render(request, 'users/login.html')
 
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('home')
@@ -73,10 +74,10 @@ def remove_img(path, img_name):
     os.remove(path + '/' + img_name)
     return True
 
+@login_required
 def user_account_manage(request):
     if request.method == "POST":
         user_model = Account.objects.get(id=request.user.id)
-        print(request.POST.get("end_of_travel"), '----------------------------------------------------------------------')
         if request.POST.get("end_of_travel"):
             user_profile_image_path = f'users/static/users/user_profile_pictures/{request.user.id}/'                             #delete proflie picture
             if os.path.exists(user_profile_image_path) is True:
@@ -115,6 +116,7 @@ def user_account_manage(request):
     context = {'form': form}
     return render(request, 'users/user_account_manage.html', context)
 
+@login_required
 def password_cahnge(request):
     form = PasswordChangeForm(user = request.user, data = request.POST)
     if request.method == 'POST':

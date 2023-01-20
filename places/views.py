@@ -4,6 +4,8 @@ import os
 #django
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 #self made
 from .forms import LocalsForm, LocalProductsForm
@@ -41,6 +43,7 @@ def remove_img(path, img_name):
     os.remove(path + '/' + img_name)
     return True
 
+@login_required
 def local_edit(request, pk):
     local = Locals.objects.get(id=pk)
     streets = Street.objects.all()
@@ -67,6 +70,7 @@ def local_edit(request, pk):
     context = {'local':local, 'streets':streets}
     return render(request, 'places/forms/local_form.html', context)
 
+@login_required
 def local_add(request):
     form = LocalsForm(request.POST, request.FILES)
     streets = Street.objects.all()
@@ -92,6 +96,7 @@ def local_add(request):
             return redirect('local_list')
     return render(request, 'places/forms/local_add.html', context)
 
+@login_required
 def local_delete(request, pk):
     local_request = Locals.objects.get(id=pk)
     if request.method == "POST":
@@ -116,6 +121,7 @@ def product(request, pk):
     context = {'product':product, 'local':local, 'opinions':opinions}
     return render(request, 'places/product.html', context)
 
+@login_required
 def product_add(request, pk):
     local = Locals.objects.get(id=pk)
     form = LocalProductsForm(request.POST, request.FILES)
@@ -132,6 +138,7 @@ def product_add(request, pk):
     context = {'form':form}
     return render(request, 'places/forms/product_add.html', context)
 
+@login_required
 def product_edit(request, pk):
     product = LocalProducts.objects.get(id=pk)
     if request.method == 'POST':
@@ -153,6 +160,7 @@ def product_edit(request, pk):
     context = {'product':product}
     return render(request, 'places/forms/product_edit.html', context)
 
+@login_required
 def product_delete(request, pk):
     product = LocalProducts.objects.get(id=pk)
     if request.method == "POST":
@@ -164,6 +172,7 @@ def rating_list(request):
     context = {'opinions':opinions}
     return render(request, 'places/opinions.html', context)
 
+@login_required
 def rating_add(request, pk):
     local_req = Locals.objects.get(id=pk)
     if request.method == "POST":
@@ -174,6 +183,7 @@ def rating_add(request, pk):
         )
         return redirect('local', local_req.id)
 
+@login_required
 def rating_delete(request, pk):
     try:
         rating = LocalRating.objects.get(id=pk)
@@ -207,19 +217,21 @@ def place_locals(request, name, pk):
         context = {'places1':places1, 'places2':places2, 'places3':places3, 'places4':places4, 'places5':places5, 'status':status, 'area':area}
     return render(request, 'places/place_locals.html', context)
 
-
+@login_required
 def user_visit(request):
     places = Locals.objects.all()
     locals = PlaceToVisit.objects.filter(user=request.user).order_by("?")
     context = {'locals':locals, 'places':places}
     return render(request, 'places/visit_favourite.html', context)
 
+@login_required
 def user_favourite(request):
     places = Locals.objects.all()
     locals = PlaceFavourite.objects.filter(user=request.user)
     context = {'locals':locals ,'places':places}
     return render(request, 'places/visit_favourite.html', context)
 
+@login_required
 def user_vis_fav_form(request, pk):
     local = Locals.objects.get(id=pk)
     if request.method == 'POST':

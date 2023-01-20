@@ -2,18 +2,19 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from itertools import chain
 
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
 from places.models import Locals, Street, District
 from message.models import RoomDeleteAsk, MessagesRoom
 # Create your views here.
-
 def home(request):
     posts = Post.objects.all()
     context = {'posts':posts}
     return render(request, 'core/home.html', context)
 
+@login_required
 def search(request):    
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     if q == '':
@@ -65,6 +66,7 @@ def post(request, pk):
     context = {'post_infos':post_infos, 'user_likes':user_likes, 'user_dislikes':user_dislikes, 'coments':coments}
     return render(request, 'core/post.html', context)
 
+@login_required()
 def like_func(request, pk):
     post_req = Post.objects.get(id=pk)
     if request.method == "POST":
@@ -95,6 +97,7 @@ def like_func(request, pk):
             check_interactions(request.user, post_req, 'la')
             return redirect('post', pk)
 
+@login_required()
 def dislike_func(request, pk):
     post_req = Post.objects.get(id=pk)
     if request.method == "POST":
@@ -133,6 +136,7 @@ def user_page(request, name):
 
     return render(request, 'core/user_page.html', context)
 
+@login_required
 def check_interactions(user, post_id, status):
     if status in ['ca', 'la', 'da']:                                                                 #If user wants to add interaction, but there alredy exist then adds nothing
         try:
@@ -176,13 +180,14 @@ def check_interactions(user, post_id, status):
             iter.delete()
         return True
 
+@login_required
 def user_interactions(request, username):
     user_req = Account.objects.get(username=username)
     posts_interacted = Interractions.objects.filter(person = user_req.id)
     context = {'user_req':user_req, 'posts_interacted':posts_interacted}
     return render(request, 'core/user_post_interactions.html', context)
 
-from itertools import chain
+@login_required
 def notifiactions(request):
     likes = Like.objects.filter(post_owner = request.user)
     dislikes = Dislike.objects.filter(post_owner = request.user)
@@ -200,3 +205,13 @@ def notifiactions(request):
     notifiactions = chain(likes, dislikes, coments, asks)
     context = {'notifiactions':notifiactions}
     return render(request, 'core/notifications.html', context)
+
+
+
+
+
+
+
+
+
+

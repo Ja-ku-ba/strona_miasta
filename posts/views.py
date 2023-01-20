@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Post, Coment
 from .forms import PostForm, ComentForm
@@ -7,9 +8,7 @@ from users.models import Account
 from core.views import check_interactions
 # Create your views here.
 
-# def post_coment(request):
-#     return render(request, 'posts/post_coment.html')
-
+@login_required
 def post_add(request):
     form = PostForm()
     context = {'form':form}
@@ -28,6 +27,7 @@ def post_add(request):
         return redirect('home')
     return render(request, 'posts/forms/post_add.html', context)
 
+@login_required
 def post_delete(request, pk, user_req):
     post = Post.objects.get(id=pk)
     user = Account.objects.get(username=user_req)
@@ -38,6 +38,7 @@ def post_delete(request, pk, user_req):
     messages.error(request, 'Nie masz uprawnień do wykonania tej akcji')
     return redirect('home')
 
+@login_required
 def coment_add(request, pk):
     form = ComentForm()
     comented_post_request = Post.objects.get(id=pk)
@@ -53,6 +54,7 @@ def coment_add(request, pk):
             check_interactions(request.user, comented_post_request, 'ca')
             return redirect('post', pk)
 
+@login_required
 def coment_delete(request, pk, user_req):
     coment = Coment.objects.get(id=pk)
     user = Account.objects.get(username=user_req)
