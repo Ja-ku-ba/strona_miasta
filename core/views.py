@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from posts.models import Post, Like, Dislike, Account, Coment, Interractions
 from places.models import Locals, Street, District
+from message.models import RoomDeleteAsk, MessagesRoom
 # Create your views here.
 
 def home(request):
@@ -121,13 +122,7 @@ def dislike_func(request, pk):
             )
             post_req.reactions -= 1
             post_req.save()
-            check_interactions(request.user, post_req, 'da')
-
-            # # creating code that create noticication for post owner
-            # notifiaction = UserNotifications.objects.filter(user=post_req.owner)
-            # if notifiaction.post_dislike 
-            # if notifiaction.exists() is False:
-            #     notifiaction.post_likes.add(request.user.id)      
+            check_interactions(request.user, post_req, 'da')    
             return redirect('post', pk)
 
 
@@ -192,8 +187,16 @@ def notifiactions(request):
     likes = Like.objects.filter(post_owner = request.user)
     dislikes = Dislike.objects.filter(post_owner = request.user)
     coments = Coment.objects.filter(post_owner=request.user)
-    # messages
-    # asks
-    notifiactions = chain(likes, dislikes, coments)
+    try:
+        room = MessagesRoom.objects.get(owner1=request.user)
+        asks = room.roomdeleteask_set.all()
+    except:
+        try:
+            room = MessagesRoom.objects.get(owner1=request.user)
+            asks = room.roomdeleteask_set.all()
+        except:
+            asks = ""
+
+    notifiactions = chain(likes, dislikes, coments, asks)
     context = {'notifiactions':notifiactions}
     return render(request, 'core/notifications.html', context)

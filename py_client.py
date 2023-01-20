@@ -140,25 +140,32 @@ Ut ac faucibus lacus, in luctus mauris. Integer sagittis, tortor ut faucibus tem
 
 '''
 
-from random_word import RandomWords
-import random
-r = RandomWords()
-smapl_len = len(sample)
+# from random_word import RandomWords
+# import random
+# r = RandomWords()
+# smapl_len = len(sample)
 # Return a single random word
-for number in range(250):
-    word = r.get_random_word()
-    des = ''
-    start_desc = random.randrange(smapl_len)
-    end_desc = random.randrange(100)
-    if start_desc + end_desc > smapl_len:
-        start_desc -= 200
-    des = sample[start_desc:start_desc+end_desc+1]
-    local_addres = end_desc
-    endpoint = "http://127.0.0.1:8000/api/add/local/"
-    data = {
-        'name':word,
-        'description':des,
-        'local_addres':end_desc,
-    }
-    get_respone = requests.post(endpoint, json=data)
-    print(get_respone.json())
+# for number in range(250):
+#     word = r.get_random_word()
+#     des = ''
+#     start_desc = random.randrange(smapl_len)
+#     end_desc = random.randrange(100)
+#     if start_desc + end_desc > smapl_len:
+#         start_desc -= 200
+#     des = sample[start_desc:start_desc+end_desc+1]
+#     local_addres = end_desc
+#     endpoint = "http://atlantydaprojectcity.pythonanywhere.com/api/add/district/"
+#     data = {
+#         'name':word,
+#         'description':des,
+#         'local_addres':end_desc,
+#     }
+#     get_respone = requests.post(endpoint, json=data)
+#     print(get_respone.json())
+
+endpoint = "http://atlantydaprojectcity.pythonanywhere.com/api/add/street/"
+data = {
+    'name':"ul. Malarzy",
+}
+get_respone = requests.post(endpoint, json=data)
+print(get_respone.json())
