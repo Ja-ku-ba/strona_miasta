@@ -16,7 +16,7 @@ class Street(models.Model):
         return self.name
 
 def get_logo_image_filepath(self, filename):
-    return f'places/static/locals/{self.pk}/logo.png'                           #route places/static/locals/local.id/logo.png
+    return f'static/locals/{self.pk}/logo.png'                           #route places/static/locals/local.id/logo.png
 
 class Locals(models.Model):
     name = models.CharField(max_length=128)
@@ -34,7 +34,7 @@ class Locals(models.Model):
         return self.local_street.name
 
 def get_profile_product_image_filepath(self, filename):
-    return f'places/static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/product.id.png
+    return f'static/locals/{self.product_local.id}/products/{self.pk}.png'                           #route places/static/locals/local.id/products/product.id.png
 
 class LocalProducts(models.Model):
     name = models.CharField(max_length=128)

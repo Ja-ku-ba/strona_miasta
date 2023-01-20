@@ -71,6 +71,7 @@ def ask(request, room_id):
     #if one user deleted an account
     if second_user is None:
         room.delete()
+        ask.delete()
         messages.info(request, 'Chat został pomyślnie usunięty')
         return redirect('chat_list')
 
@@ -79,11 +80,13 @@ def ask(request, room_id):
         delete_confirmation = RoomDeleteAsk.objects.get(room=room)
         if delete_confirmation.user1_ask == second_user:
             room.delete()
+            ask.delete()
             messages.info(request, 'Chat został pomyślnie usunięty')
             return redirect('chat_list')
 
         if delete_confirmation.user2_conf == second_user:
             room.delete()
+            ask.delete()
             messages.info(request, 'Chat został pomyślnie usunięty')
             return redirect('chat_list')
         return redirect('chat_list')

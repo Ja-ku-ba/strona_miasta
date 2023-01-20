@@ -6,7 +6,7 @@ from users.models import Account
 # Create your models here.
 
 def get_image_filepath(self, filename):
-    return f'posts/static/posts/{self.owner.id}/{self.pk}.png'                                  #path user.id --> post.id
+    return f'static/posts/{self.owner.id}/{self.pk}.png'                                  #path user.id --> post.id
                                                                                                 #isue with adding photo before uploading a post, post.id then is None
 class Post(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)

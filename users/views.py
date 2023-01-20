@@ -97,7 +97,7 @@ def user_account_manage(request):
             except:
                 pass
             user_model.delete()
-            messages.success(request, "Dziękujemy za używanie naszego portalu, twoje konto zostało pomyślnie usunię.")
+            messages.success(request, "Dziękujemy za używanie naszego portalu, twoje konto zostało pomyślnie usunięte.")
             return redirect('home')
         else:
             username = request.POST.get("username")

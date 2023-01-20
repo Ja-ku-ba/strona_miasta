@@ -31,10 +31,10 @@ class MyAccountManager(BaseUserManager):
         return user
 
 def get_profile_image_filepath(self, filename):
-    return f'users/static/users/user_profile_pictures/{self.pk}/profile_image.png'
+    return f'static/user_profile_pictures/{self.pk}/profile_image.png'
 
 def get_default_profile_image():
-    return  'static/users/default_profile_picture.png'
+    return  'static/default_profile_picture.png'
 
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email', unique=True)
